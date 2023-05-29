@@ -13,22 +13,22 @@ The overall goal of GSP is not to provide a general graphics API but rather to a
 
 ## Core
 
-- [x] [core.Data][gsp.core.Data] - encapsulate raw data (any type)
-- [x] [core.Buffer][gsp.core.Buffer] - a structured view on raw data
-- [x] [core.Canvas][gsp.core.Canvas] - create a drawing surface  
-- [x] [core.Viewport][gsp.core.Viewport] - define a region over a drawing surface
+- [x] [core.Data]() - encapsulate raw data (any type)
+- [x] [core.Buffer]() - a structured view on raw data
+- [x] [core.Canvas]() - create a drawing surface  
+- [x] [core.Viewport]() - define a region over a drawing surface
 - [ ] core.Texture - define a 1D, 2D or 3D Buffer
-- [x] [core.Measure][gsp.core.Measure] - define a value with unit
-- [x] [core.Color][gsp.core.Color] - define a color
-- [x] [core.Marker][gsp.core.Marker] - define a marker type
+- [x] [core.Measure]() - define a value with unit
+- [x] [core.Color]() - define a color
+- [x] [core.Marker]() - define a marker type
 
 ## Visual
 
 **Zero dimension**
 
-* [x] [visual.Pixels][gsp.visual.Pixels] - create a collection of pixels
-* [x] [visual.Points][gsp.visual.Points] - create a collection of points
-* [x] [visual.Markers][gsp.visual.Markers] - create a collection of markers
+* [x] [visual.Pixels]() - create a collection of pixels
+* [x] [visual.Points]() - create a collection of points
+* [x] [visual.Markers]() - create a collection of markers
 
 **One dimension**
 
@@ -44,19 +44,19 @@ The overall goal of GSP is not to provide a general graphics API but rather to a
 
 **Three dimensions**
 
-* [x] [visual.Mesh][gsp.visual.Mesh] - create a mesh
+* [x] [visual.Mesh]() - create a mesh
 * [ ] visual.Volume - create a volume
 
 ## Transform
 
 **Base**
 
-* [x] [transform.Transform][gsp.transform.Transform] - Generic transform
+* [x] [transform.Transform]() - Generic transform
 
 **Colors**
 
-* [x] [transform.Colormap][gsp.transform.Colormap] - map a scalar to a color  (`T[1] → T[4]`)
-* [x] [transform.Light][gsp.transform.Light] - modify a color according to a light  (`T[n,3] → T[n,4]`)
+* [x] [transform.Colormap]() - map a scalar to a color  (`T[1] → T[4]`)
+* [x] [transform.Light]() - modify a color according to a light  (`T[n,3] → T[n,4]`)
 
 **Operators** (`T[n] × T[n] → T[n]`)
    
@@ -82,17 +82,17 @@ The overall goal of GSP is not to provide a general graphics API but rather to a
 
 **Screen (JIT)** (` ∅ → T[1]`)
 
-  * [x] [transform.Screen][gsp.transform.Screen] - Screen coordinates
-  * [x] [transform.ScreenX][gsp.transform.ScreenX] - Screen X coordinates
-  * [x] [transform.ScreenY][gsp.transform.ScreenY] - Screen X coordinates
-  * [x] [transform.ScreenZ][gsp.transform.ScreenZ] - Screen X coordinates
+  * [x] [transform.Screen]() - Screen coordinates
+  * [x] [transform.ScreenX]() - Screen X coordinates
+  * [x] [transform.ScreenY]() - Screen X coordinates
+  * [x] [transform.ScreenZ]() - Screen X coordinates
 
 **Measure**  (`T[n] → T[n]`)
 
-  * [x] [transform.Pixel][gsp.transform.Pixel] - Conversion to pixel
-  * [x] [transform.Point][gsp.transform.Point] - Conversion to point (1/72 inch)
-  * [x] [transform.Inch][gsp.transform.Inch] - Conversion to inch
-  * [x] [transform.Millimeter][gsp.transform.Millimeter] - Conversion to millimeter
-  * [x] [transform.Centimeter][gsp.transform.Centimeter] - Conversion to centimeter
-  * [x] [transform.Meter][gsp.transform.Meter] - Conversion to meter
-  * [x] [transform.Kilometer][gsp.transform.Kilometer] - Conversion to kilometer
+  * [x] [transform.Pixel]() - Conversion to pixel
+  * [x] [transform.Point]() - Conversion to point (1/72 inch)
+  * [x] [transform.Inch]() - Conversion to inch
+  * [x] [transform.Millimeter]() - Conversion to millimeter
+  * [x] [transform.Centimeter]() - Conversion to centimeter
+  * [x] [transform.Meter]() - Conversion to meter
+  * [x] [transform.Kilometer]() - Conversion to kilometer
