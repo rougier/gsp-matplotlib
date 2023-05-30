@@ -68,7 +68,8 @@ class Pixels(Visual):
         """
 
         # Update transform
-        self._transform.set_data(transform)
+        if transform is not None:
+            self._transform.set_data(transform)
 
         # Get positions
         positions = self.get_attribute("positions")
