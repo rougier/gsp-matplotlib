@@ -79,7 +79,7 @@ class Mesh(Visual):
 
           mode :
 
-            Render more, one of None, front or back
+            Render mode, one of None, "front" or "back"
         """
 
 
