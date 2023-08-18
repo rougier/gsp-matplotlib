@@ -10,5 +10,5 @@ setup(
     description = "Graphic Server Protocol",
     author = "Nicolas P. Rougier",
     author_email = "nicolas.rougier@inria.fr",
-    packages = ["gsp", "gsp.core", "gsp.visual", "gsp.transform"]
+    packages = ["gsp", "gsp.core", "gsp.glm", "gsp.visual", "gsp.transform"]
 )
