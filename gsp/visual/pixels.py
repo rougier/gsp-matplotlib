@@ -47,6 +47,9 @@ class Pixels(Visual):
         # of viewport size (in pixels). We could round vertices at
         # time of rendering but it is easier to set a very small size
         # whose coverage is more or less guaranteed to be one pixel.
+
+        # WARNING: the size seems to be wrong on Windows or on different screen
+        # Since the co
         size = 0.25*(72/self._viewport._canvas._dpi)**2
         self._scatter = self._viewport._axes.scatter( [],[], size, **kwargs)
         self._scatter.set_antialiaseds(True)
