@@ -1,6 +1,13 @@
-site_name: Graphic Server Protocol
+# To debug:
+#   griffe dump gsp -o/dev/null -LDEBUG
+#   mkdocs -v
+# See also https://github.com/mkdocstrings/mkdocstrings/issues/451
+site_name: Graphic Server Protocol 
 use_directory_urls: false
-site_url: ""
+repo_url: https://github.com/rougier/gsp-matplotlib
+remote_name: origin # For mkdocs gh-deploy
+docs_dir: 'docs'
+
 theme:
   name: material
   features:
