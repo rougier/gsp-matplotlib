@@ -9,7 +9,7 @@ This example doesn't do much, it just makes a simple plot
 """
 import numpy as np
 import matplotlib.pyplot as plt
-from gsp import core, visual, transform, glm
+from gsp import glm, core, visual, transform
 
 canvas   = core.Canvas(512, 512, 100.0)
 viewport = core.Viewport(canvas, 0, 0, 512, 512)

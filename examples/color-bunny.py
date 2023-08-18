@@ -2,11 +2,8 @@
 # Graphic Server Protocol (GSP)
 # Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
 # -----------------------------------------------------------------------------
-"""
-# Simple light example
+""" Bunny colored according to depth """
 
-This example doesn't do much, it just makes a simple plot
-"""
 import numpy as np
 import matplotlib.pyplot as plt
 from gsp import glm, core, visual, transform
