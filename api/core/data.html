@@ -847,149 +847,6 @@
   <div class="doc doc-contents first">
 
 
-  
-      <p>Data represents a block of raw binary data, with an
-optional structure. This data is built using the provided uri
-that may either point to an external file, or be a data URI
-that encodes the binary data directly in the JSON file. When
-an uri is provided, data will is fetched just in time and
-stored locally. If no uri has been provided, aempty data will
-be created ex-nihilo just in time. Data can be modified and
-is tracked for any modification.</p>
-
-<p><strong>Examples:</strong></p>
-    
-      <div class="language-pycon highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="n">struct</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">byte</span><span class="p">)])</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="go">2       </span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="go">[0 0 0 0 0 0 0 0 0 0 0 0 0 0]</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="go">[0. 0. 0.]</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="go">[0 0]        </span>
-</span></code></pre></div>
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>uri</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>Uniform Resource Identifier from where to fetch data.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>nbytes</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td><p>Number of bytes in the data. This is used to create data
-ex-nihilo if no uri has been provided. If a struct is
-provided, the nbytes is discarded in favor of the size of
-the provided structure.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>struct</code></td>
-          <td>
-                <code>list[tuple[int, type], ...]</code>
-          </td>
-          <td><p>Description of the internal structure of the data as a
-list of (count, dtype) items.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-      <p>with <code>ctype</code> one of:</p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Data type</th>
-<th>Signed</th>
-<th>Bits</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>np.int8</td>
-<td>signed byte</td>
-<td>signed, two's complement</td>
-<td>8</td>
-</tr>
-<tr>
-<td>np.uint8</td>
-<td>unsigned byte</td>
-<td>unsigned</td>
-<td>8</td>
-</tr>
-<tr>
-<td>np.int16</td>
-<td>signed short</td>
-<td>signed, two's complement</td>
-<td>16</td>
-</tr>
-<tr>
-<td>np.uint16</td>
-<td>unsigned short</td>
-<td>unsigned</td>
-<td>16</td>
-</tr>
-<tr>
-<td>np.int32</td>
-<td>signed int</td>
-<td>signed</td>
-<td>32</td>
-</tr>
-<tr>
-<td>np.uint32</td>
-<td>unsigned int</td>
-<td>unsigned</td>
-<td>32</td>
-</tr>
-<tr>
-<td>np.int64</td>
-<td>signed long</td>
-<td>signed</td>
-<td>64</td>
-</tr>
-<tr>
-<td>np.uint64</td>
-<td>unsigned long</td>
-<td>unsigned</td>
-<td>64</td>
-</tr>
-<tr>
-<td>np.float32</td>
-<td>float</td>
-<td>signed</td>
-<td>32</td>
-</tr>
-<tr>
-<td>np.float64</td>
-<td>double</td>
-<td>signed</td>
-<td>64</td>
-</tr>
-</tbody>
-</table>
 
 
   
@@ -1019,40 +876,14 @@ list of (count, dtype) items.</p></td>
   <div class="doc doc-contents ">
   
       <p>Update data content at given offset with new data.</p>
+<p>Parameters:</p>
+<p>offset:</p>
+<div class="codehilite"><pre><span></span><code>Offset in bytes where to start update
+</code></pre></div>
 
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>offset</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td><p>Offset in bytes where to start update</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>data</code></td>
-          <td>
-                <code>bytes</code>
-          </td>
-          <td><p>Content to update with.</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+<p>data:</p>
+<div class="codehilite"><pre><span></span><code>Content to update with.
+</code></pre></div>
 
   </div>
 

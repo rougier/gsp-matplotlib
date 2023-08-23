@@ -835,65 +835,11 @@
 
 
 </h2>
-<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Transform</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">next</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">buffer</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</span></code></pre></div>
+
 
   <div class="doc doc-contents first">
 
 
-  
-      <p>A Transform allows to apply an arbitratry transformation to
-a buffer. Any transform can be bound to a specific buffer and
-used in place of a Buffer where needed. Several transforms can
-be chained or composed together.</p>
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>base</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="gsp.transform.transform.Transform" href="#gsp.transform.Transform">Transform</a></code>
-          </td>
-          <td><p>The base transform this transform is based on. When non
- null, all transform parameters are read from the base.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>next</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="gsp.transform.transform.Transform" href="#gsp.transform.Transform">Transform</a></code>
-          </td>
-          <td><p>A transformation can be chained with another transform
- (<code>next</code>). In such case, the <strong><code>next</code> transform is applied
- first</strong> and result is passed to the current transform.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>buffer</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a></code>
-          </td>
-          <td><p>Buffer on which to apply the transform. When non null, the
- transformation is bound and cannot be modified anymore.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
 
 
   

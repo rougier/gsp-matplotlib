@@ -861,78 +861,11 @@
 
 
 </h2>
-<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Canvas</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mf">100.0</span><span class="p">)</span>
-</span></code></pre></div>
+
 
   <div class="doc doc-contents first">
 
 
-  
-      <p>A Canvas is a two-dimensional drawing area of size
-width × height pixels using the specified dpi (dots per
-inch).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul>
-<li>
-<p>A canvas uses a standard color space with at least 8
-  bits per channel.</p>
-</li>
-<li>
-<p>Blending mode is alpha blending</p>
-</li>
-<li>
-<p>The <code>(0,0)</code> coordinates corresponds to the bottom left corner.</p>
-</li>
-<li>
-<p>A typographical point is 1/72 inch.</p>
-</li>
-</ul>
-</div>
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>width</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td><p>Width of the drawing area in pixels.</p></td>
-          <td>
-                <code>512</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>height</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td><p>Height of the drawing area in pixels.</p></td>
-          <td>
-                <code>512</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>dpi</code></td>
-          <td>
-                <code>float</code>
-          </td>
-          <td><p>Dots per inch</p></td>
-          <td>
-                <code>100.0</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
 
 
   
@@ -963,30 +896,10 @@ inch).</p>
   
       <p>Render the canvas to the specified target. If no target is
 specified, return a raw image as bytes.</p>
-
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>target</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>Filename of the target</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+<p>Parameters:</p>
+<p>target:</p>
+<div class="codehilite"><pre><span></span><code>Filename of the target
+</code></pre></div>
 
   </div>
 

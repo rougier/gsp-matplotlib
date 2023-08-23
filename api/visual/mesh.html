@@ -602,6 +602,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#gsp.visual.mesh.Mesh.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gsp.visual.mesh.Mesh.render" class="md-nav__link">
     render()
   </a>
@@ -821,6 +828,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#gsp.visual.mesh.Mesh.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gsp.visual.mesh.Mesh.render" class="md-nav__link">
     render()
   </a>
@@ -861,105 +875,43 @@
 
 
 </h2>
-<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Mesh</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">viewport</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">positions</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">indices</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">fill_colors</span><span class="o">=</span><span class="n">Color</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">line_colors</span><span class="o">=</span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">line_widths</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">shading</span><span class="o">=</span><span class="s2">&quot;flat&quot;</span><span class="p">,</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">)</span>
-</span></code></pre></div>
+
 
   <div class="doc doc-contents first">
 
-
   
-      <p>Mesh as a collection of triangles</p>
+      <div class="admonition note">
+<p class="admonition-title">Quick documentation</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="gsp.visual.Mesh--__tabbed_1_1" name="gsp.visual.Mesh--__tabbed_1" type="radio" /><input id="gsp.visual.Mesh--__tabbed_1_2" name="gsp.visual.Mesh--__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="gsp.visual.Mesh--__tabbed_1_1">Definition</label><label for="gsp.visual.Mesh--__tabbed_1_2">Code example</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><img align="right" alt="" src="../../assets/simple-mesh.png" width="33%" /></p>
+<p>Meshes are collection of triangles that can be filled, stroked
+and textured.</p>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span> <span class="nn">gsp</span> <span class="kn">import</span> <span class="n">glm</span><span class="p">,</span> <span class="n">core</span><span class="p">,</span> <span class="n">visual</span><span class="p">,</span> <span class="n">transform</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">canvas</span>   <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">viewport</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">Viewport</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">camera</span>   <span class="o">=</span> <span class="n">glm</span><span class="o">.</span><span class="n">Camera</span><span class="p">(</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span> <span class="n">theta</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">V</span><span class="p">,</span><span class="n">Vi</span> <span class="o">=</span> <span class="n">glm</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="s2">&quot;data/bunny-4096.obj&quot;</span><span class="p">)</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">EC</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="mf">0.00</span><span class="p">,</span> <span class="mf">0.00</span><span class="p">,</span> <span class="mf">0.00</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">FC</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="mf">1.00</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">,</span> <span class="mf">1.00</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">)</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">mesh</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">Mesh</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">Vi</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">FC</span><span class="p">,</span> <span class="n">EC</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">mesh</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">viewport</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">proj</span><span class="p">)</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">camera</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">viewport</span><span class="p">,</span> <span class="s2">&quot;motion&quot;</span><span class="p">,</span>  <span class="n">mesh</span><span class="o">.</span><span class="n">render</span><span class="p">)</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+</div>
 
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>viewport</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="gsp.core.Viewport" href="../core/viewport.html#gsp.core.Viewport">Viewport</a></code>
-          </td>
-          <td><p>Viewport where this visual will be renderdd</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>positions</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="gsp.transform.Transform" href="../transform/transform.html#gsp.transform.Transform">Transform</a> | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a></code>
-          </td>
-          <td><p>Vertices positions (vec3)</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>indices</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="gsp.transform.Transform" href="../transform/transform.html#gsp.transform.Transform">Transform</a> | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a></code>
-          </td>
-          <td><p>Indices of triangles (vec3)</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>fill_colors</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="gsp.transform.Transform" href="../transform/transform.html#gsp.transform.Transform">Transform</a> | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a> | <a class="autorefs autorefs-internal" title="gsp.core.Color" href="../core/types.html#gsp.core.Color">Color</a></code>
-          </td>
-          <td><p>Triangles fill color (vec4)</p></td>
-          <td>
-                <code>Color(1, 1, 1, 1)</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>line_colors</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="gsp.transform.Transform" href="../transform/transform.html#gsp.transform.Transform">Transform</a> | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a> | <a class="autorefs autorefs-internal" title="gsp.core.Color" href="../core/types.html#gsp.core.Color">Color</a></code>
-          </td>
-          <td><p>Triangles line color (vec4)</p></td>
-          <td>
-                <code>Color(0, 0, 0, 1)</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>line_widths</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="gsp.transform.Transform" href="../transform/transform.html#gsp.transform.Transform">Transform</a> | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a> | <a class="autorefs autorefs-internal" title="gsp.core.Measure" href="../core/types.html#gsp.core.Measure">Measure</a></code>
-          </td>
-          <td><p>Triangles line widths (scalar)</p></td>
-          <td>
-                <code>0</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>shading_mode</code></td>
-          <td>
-          </td>
-          <td><p>Flat, Gouraud or Phong</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
 
 
   
@@ -978,17 +930,44 @@
 
 
 
-<h3 id="gsp.visual.mesh.Mesh.render" class="doc doc-heading">
-        <span class="doc doc-object-name doc-function-name">render</span>
+<h3 id="gsp.visual.mesh.Mesh.__init__" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">__init__</span>
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">render</span><span class="p">(</span><span class="n">transform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="fm">__init__</span><span class="p">(</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">positions</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">face_indices</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">line_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">fill_colors</span><span class="o">=</span><span class="n">Color</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">line_colors</span><span class="o">=</span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">line_widths</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">)</span>
 </span></code></pre></div>
 
   <div class="doc doc-contents ">
   
-      <p>Render the visual using given transform</p>
+      <p>Create a visual for one or several meshes using <em>positions</em> and
+<em>face_indices</em> (that describes triangles) and <em>line_indices</em>
+(that describes paths). Each triangle can be painted with
+<em>fill_colors</em> and paths can be stroke using <em>line_colors</em> and
+<em>line_widths</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Notes on matplotlib implementation</p>
+<ul>
+<li>
+<p>Line indices are not used and lines always correspond to
+  triangles edges. We could use an additional path
+  collection for rendering lines but the, we could not
+  sort paths/triangles accross the two collections.</p>
+</li>
+<li>
+<p>Fill colors are always related to faces because
+  matplotlib does not implement barycentric interpolation
+  inside a triangle.</p>
+</li>
+</ul>
+</div>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1002,20 +981,136 @@
     </thead>
     <tbody>
         <tr>
-          <td><code>transform</code></td>
+          <td><code>positions</code></td>
           <td>
-                <code><a class="autorefs autorefs-internal" title="gsp.transform.Transform" href="../transform/transform.html#gsp.transform.Transform">Transform</a></code>
+                <code>Transform | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a></code>
           </td>
-          <td><p>Model/view/projection transform to use</p></td>
+          <td><p>Vertices positions (vec3)</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>face_indices</code></td>
+          <td>
+                <code>Transform | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a></code>
+          </td>
+          <td><p>Face indices (int)</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>line_indices</code></td>
+          <td>
+                <code> Transform | Buffer | None</code>
+          </td>
+          <td><p>Line indices (int)</p></td>
           <td>
                 <code>None</code>
           </td>
         </tr>
         <tr>
-          <td><code>mode</code></td>
+          <td><code>fill_colors</code></td>
           <td>
+                <code>Transform | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a> | <a class="autorefs autorefs-internal" title="gsp.core.Color" href="../core/types.html#gsp.core.Color">Color</a></code>
           </td>
-          <td><p>Render mode, one of None, "front" or "back"</p></td>
+          <td><p>Faces color (vec4)</p></td>
+          <td>
+                <code>Color(1, 1, 1, 1)</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>line_colors</code></td>
+          <td>
+                <code>Transform | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a> | <a class="autorefs autorefs-internal" title="gsp.core.Color" href="../core/types.html#gsp.core.Color">Color</a></code>
+          </td>
+          <td><p>Line colors (vec4)</p></td>
+          <td>
+                <code>Color(0, 0, 0, 1)</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>line_widths</code></td>
+          <td>
+                <code>Transform | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a> | <a class="autorefs autorefs-internal" title="gsp.core.Measure" href="../core/types.html#gsp.core.Measure">Measure</a></code>
+          </td>
+          <td><p>Line widths (scalar)</p></td>
+          <td>
+                <code>0</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="gsp.visual.mesh.Mesh.render" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">render</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">render</span><span class="p">(</span><span class="n">viewport</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Render the visual on <em>viewport</em> using the given <em>model</em>,
+<em>view</em>, <em>proj</em> matrices</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>viewport</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="gsp.core.Viewport" href="../core/viewport.html#gsp.core.Viewport">Viewport</a></code>
+          </td>
+          <td><p>Viewport where to render the visual</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>model</code></td>
+          <td>
+                <code>mat4</code>
+          </td>
+          <td><p>Model matrix to use for rendering</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>view</code></td>
+          <td>
+                <code>mat4</code>
+          </td>
+          <td><p>View matrix to use for rendering</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>proj</code></td>
+          <td>
+                <code>mat4</code>
+          </td>
+          <td><p>Projection matrix to use for rendering</p></td>
           <td>
                 <code>None</code>
           </td>

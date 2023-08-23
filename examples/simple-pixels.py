@@ -3,9 +3,8 @@
 # Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
 # -----------------------------------------------------------------------------
 """
-# Simple light example
-
-This example doesn't do much, it just makes a simple plot
+This example show the Pixels visual where pixels are spread
+randomly inside a cube that can be rotated using the mouse.
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,12 +12,12 @@ from gsp import glm, core, visual, transform
 
 canvas   = core.Canvas(512, 512, 100.0)
 viewport = core.Viewport(canvas, 0, 0, 512, 512)
-camera   = glm.Camera("perspective", theta=10, phi=10)
+camera   = glm.Camera("perspective", theta=50, phi=50)
 
-positions = glm.vec3(250_000)
-positions.xyz = np.random.uniform(-1, +1, (len(positions),3))
-pixels = visual.Pixels(viewport, positions, core.Color(0,0,0,1))
-pixels.render(camera.transform)
-
-camera.connect(viewport._axes, "motion",  pixels.render)
+P = glm.vec3(250_000)
+P.xyz = np.random.uniform(-1, +1, (len(P),3))
+pixels = visual.Pixels(P)
+pixels.render(viewport, camera.model, camera.view, camera.proj)
+camera.connect(viewport, "motion",  pixels.render)
+# plt.savefig("../docs/assets/simple-pixels.png")
 plt.show()
