@@ -4,7 +4,7 @@
 # -----------------------------------------------------------------------------
 import numpy as np
 from . buffer import Buffer
-from .. glm import tracked_array
+from .. glm import ndarray
 
 class Data:
     
@@ -128,7 +128,7 @@ class Data:
         """
         
         if self._array is None:
-            self._array = tracked_array(self._nbytes, np.ubyte)
+            self._array = ndarray.tracked(self._nbytes, np.ubyte)
             if self._uri is not None:
                 data = urllib.request.urlopen(uri)
                 bytes = data.read()

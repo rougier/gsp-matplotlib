@@ -60,15 +60,15 @@ class Operator(Transform):
             
         return transform
 
-    def evaluate(self, uniforms, attributes):
+    def evaluate(self, variables):
 
         if isinstance(self._left, Transform):
-            left = self._left.evaluate(uniforms, attributes)
+            left = self._left.evaluate(variables)
         else:
             left = self._left
             
         if isinstance(self._right, Transform):
-            right = self._right.evaluate(uniforms, attributes)
+            right = self._right.evaluate(variables)
         else:
             right = self._right
             
@@ -78,30 +78,30 @@ class Add(Operator):
     def __init__(self, left = None, right = None):
         Operator.__init__(self, "+", left, right)
 
-    def evaluate(self, uniforms, attributes):
-        left, right = Operator.evaluate(self, uniforms, attributes)
+    def evaluate(self, variables):
+        left, right = Operator.evaluate(self, variables)
         return left + right
         
 class Sub(Operator):
     def __init__(self, left = None, right = None):
         Operator.__init__(self, "-", left, right)
 
-    def evaluate(self, uniforms, attributes):
-        left, right = Operator.evaluate(self, uniforms, attributes)
+    def evaluate(self, variables):
+        left, right = Operator.evaluate(self, variables)
         return left - right
 
 class Mul(Operator):
     def __init__(self, left = None, right = None):
         Operator.__init__(self, "*", left, right)
 
-    def evaluate(self, uniforms, attributes):
-        left, right = Operator.evaluate(self, uniforms, attributes)
+    def evaluate(self, variables):
+        left, right = Operator.evaluate(self, variables)
         return left * right
 
 class Div(Operator):
     def __init__(self, left = None, right = None):
         Operator.__init__(self, "/", left, right)
 
-    def evaluate(self, uniforms, attributes):
-        left, right = Operator.evaluate(self, uniforms, attributes)
+    def evaluate(self, variables):
+        left, right = Operator.evaluate(self, variables)
         return left / right

@@ -3,148 +3,183 @@
 # Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
 # -----------------------------------------------------------------------------
 import numpy as np
-from gsp.glm import mat4
-import matplotlib.pyplot as plt
-from matplotlib.collections import PolyCollection
-from gsp.transform import Transform, Mat4
-from gsp.core import Viewport, Buffer, Color, Measure
+from gsp import glm
 from gsp.visual import Visual
+from matplotlib.collections import PolyCollection
+from gsp.core import Viewport, Buffer, Color, Measure
 
 class Mesh(Visual):
-    def __init__(self, viewport : Viewport,
-                       positions: Transform | Buffer,
-                       indices : Transform | Buffer,
-                       fill_colors : Transform | Buffer | Color   = Color(1,1,1,1),
-                       line_colors : Transform | Buffer | Color   = Color(0,0,0,1),
-                       line_widths : Transform | Buffer | Measure = 0,
-                       shading : str = "flat"):
+    """
+    !!! Note "Quick documentation"
+
+        === "Definition"
+
+            ![](../../assets/simple-mesh.png){ width="33%" align=right }
+
+            Meshes are collection of triangles that can be filled, stroked
+            and textured.
+
+
+        === "Code example"
+
+             ```python
+             import numpy as np
+             import matplotlib.pyplot as plt
+             from gsp import glm, core, visual, transform
+
+             canvas   = core.Canvas(512, 512, 100.0)
+             viewport = core.Viewport(canvas, 0, 0, 512, 512)
+             camera   = glm.Camera("perspective", theta=-20, phi=2.5)
+
+             V,Vi = glm.mesh("data/bunny-4096.obj")
+             EC = core.Color(0.00, 0.00, 0.00, 1.00)
+             FC = core.Color(1.00, 1.00, 1.00, 0.85)
+             mesh = visual.Mesh(V, Vi, None, FC, EC, 0.25)
+             mesh.render(viewport, camera.model, camera.view, camera.proj)
+
+             camera.connect(viewport, "motion",  mesh.render)
+             plt.show()
+             ```
+    """
+
+    
+    def __init__(self, positions, face_indices,
+                       line_indices = None,
+                       fill_colors = Color(1,1,1,1),
+                       line_colors = Color(0,0,0,1),
+                       line_widths = 0):
         """
-        Mesh as a collection of triangles
+        Create a visual for one or several meshes using *positions* and
+        *face_indices* (that describes triangles) and *line_indices*
+        (that describes paths). Each triangle can be painted with
+        *fill_colors* and paths can be stroke using *line_colors* and
+        *line_widths*.
 
-        Parameters:
+        !!! Note "Notes on matplotlib implementation"
 
-          viewport:
+            - Line indices are not used and lines always correspond to
+              triangles edges. We could use an additional path
+              collection for rendering lines but the, we could not
+              sort paths/triangles accross the two collections.
+
+            - Fill colors are always related to faces because
+              matplotlib does not implement barycentric interpolation
+              inside a triangle.
         
-            Viewport where this visual will be renderdd
-
-          positions:
-        
+        Parameters
+        ----------
+        positions : Transform | Buffer
             Vertices positions (vec3)
-
-          indices:
-        
-            Indices of triangles (vec3)
-
-          fill_colors:
-        
-            Triangles fill color (vec4)
-
-          line_colors:
-        
-            Triangles line color (vec4)
-
-          line_widths:
-        
-            Triangles line widths (scalar)
-        
-          shading_mode:
-        
-            Flat, Gouraud or Phong
-        
+        face_indices : Transform | Buffer
+            Face indices (int)
+        line_indices :  Transform | Buffer | None
+            Line indices (int)
+        fill_colors : Transform | Buffer | Color
+            Faces color (vec4)
+        line_colors : Transform | Buffer | Color
+            Line colors (vec4)
+        line_widths : Transform | Buffer | Measure
+            Line widths (scalar)
         """
 
-        Visual.__init__(self, viewport)
-        self._shading = shading
-
-        self.set_attribute("positions", positions)
-        self.set_attribute("indices", indices)
+        Visual.__init__(self)
+        self.set_variable("positions", positions)
+        self.set_variable("face_indices", face_indices)
         self.set_variable("fill_colors", fill_colors)
         self.set_variable("line_colors", line_colors)
         self.set_variable("line_widths", line_widths)
-        
-        self._collection = PolyCollection([], clip_on=True, snap=False)
-        self._viewport._axes.add_collection(self._collection, autolim=False)
 
 
-    def render(self, transform : Transform = None,
-                     mode : str = None):
+    def render(self, viewport, model=None, view=None, proj=None):
         """
-        Render the visual using given transform
+        Render the visual on *viewport* using the given *model*,
+        *view*, *proj* matrices
 
-        Parameters:
-
-          transform:
-        
-            Model/view/projection transform to use
-
-          mode :
-
-            Render mode, one of None, "front" or "back"
+        Parameters
+        ----------
+        viewport : Viewport
+            Viewport where to render the visual
+        model : mat4
+            Model matrix to use for rendering
+        view : mat4
+            View matrix to use for rendering
+        proj : mat4
+            Projection matrix to use for rendering
         """
 
+        # We store the model/view/proj matrices for the resize_event below
+        if model is not None:
+            self._model = model
+        model = self._model
+        
+        if view is not None:
+            self._view = view
+        view = self._view
 
-        # Update transform
-        if transform is not None:
-            self._transform.set_data(transform)
+        if proj is not None:
+            self._proj = proj
+        proj = self._proj
 
+        self.set_variable("viewport", viewport)
+        transform = proj @ view @ model
+        
+        if viewport not in self._viewports:
+            collection = PolyCollection([], clip_on=True, snap=False)
+            self._viewports[viewport] = collection
+            viewport._axes.add_collection(collection, autolim=False)
 
+            # This is necessary for measure transforms that need to be
+            # kept up to date with canvas size
+            canvas = viewport._canvas._figure.canvas
+            canvas.mpl_connect('resize_event',
+                               lambda event: self.render(viewport))
+            
+        collection = self._viewports[viewport]
+        
         # Get positions
-        positions = self.get_attribute("positions")
-        if self.is_transform("positions"):
-            positions = positions.evaluate(self._uniforms, self._attributes)
-        else:
-            positions = np.asanyarray(positions)
+        positions = self.eval_variable("positions")
         positions = positions.reshape(-1,3)
 
-        # Get indices
-        indices = self.get_attribute("indices")
-        if self.is_transform("indices"):
-            indices = indices.evaluate(self._uniforms, self._attributes)
-        else:
-            indices = np.asanyarray(indices)
-        indices = indices.reshape(-1,3)
-
-        # Compute tranformed triangles (T) and their (mean) depth (Z)
-        T = self._transform(positions)[indices]
-        Z = -T[:,:,2].mean(axis=1)
-
-        # Check which mode to use (front, back or both)
-        index = None
-        if mode == "front":
-            index, _ = glm.frontback(T)
-            T, Z = T[index], Z[index]
-        elif mode == "back":
-            _, index = glm.frontback(T)
-            T, Z = T[index], Z[index]
-
-        self.set_attribute("screen", T)
-        self.set_attribute("depth", Z)
-        self.set_attribute("index", index)
-            
-        # Get 2d triangles
-        T = T[:,:,:2]
+        # Get face indices as triangles
+        face_indices = self.eval_variable("face_indices")
+        face_indices = face_indices.reshape(-1,3)
         
-        # Sort triangles according to z buffer
-        I = np.argsort(Z)
+        # Compute tranformed triangles (faces) and their (mean) depth
+        positions = glm.to_vec3(glm.to_vec4(positions) @ transform.T)
+        p_depth = positions[:,2]
+        faces = positions[face_indices]
+        f_depth = -faces[:,:,2].mean(axis=1)
 
-        # Set positions
-        self._collection.set_verts(T[I,:])
+        self.set_variable("screen", {"positions": positions,
+                                   "faces": faces} )
+        self.set_variable("depth",  {"positions": p_depth,
+                                   "faces": f_depth} )
         
-        # Set attributes
+        # Sort faces according to f_depth
+        sort_indices = np.argsort(f_depth)
+
+        
+        # Set positions in the collection
+        collection.set_verts(faces[sort_indices,:,:2])
+        
+        # Set fill color(s)
         fill_colors = self.eval_variable("fill_colors")
-        if self.is_attribute("fill_colors"):
-            self._collection.set_facecolors(fill_colors[I,:])
+        if isinstance(fill_colors, np.ndarray) and (len(fill_colors) == len(faces)):
+            collection.set_facecolors(fill_colors[sort_indices,:])
         else:
-            self._collection.set_facecolors(fill_colors)
+            collection.set_facecolors(fill_colors)
 
+        # Set line color(s)
         line_colors = self.eval_variable("line_colors")
-        if self.is_attribute("line_colors"):
-            self._collection.set_edgecolors(line_colors[I,:])
-        else:
-            self._collection.set_edgecolors(line_colors)
+        if line_colors is not None:
+            if isinstance(line_colors, np.ndarray) and (len(line_colors) == len(faces)):
+                collection.set_edgecolors(line_colors[sort_indices,:])
+            else:
+                collection.set_edgecolors(line_colors)
 
+        # Set line width(s)
         line_widths = self.eval_variable("line_widths")
         if line_widths is not None:
-            self._collection.set_linewidths(line_widths)
-            self._collection.set_antialiaseds(line_widths > 0)
+            collection.set_linewidths(line_widths)
+            collection.set_antialiaseds(line_widths > 0)
 

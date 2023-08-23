@@ -62,7 +62,7 @@ class Light(Transform):
         transform._shininess = self._shininess
         return transform
         
-    def evaluate(self, uniforms, attributes):
+    def evaluate(self, buffers):
 
         if self._next:
             F = self._next.evaluate(buffers)
@@ -94,4 +94,5 @@ class Light(Transform):
                  + specular * specular_color)
         color[:,3] = 1
         color = glm.RGBA_to_sRGBA(color)
+
         return np.minimum(1, color)

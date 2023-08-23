@@ -12,15 +12,14 @@ canvas   = core.Canvas(512, 512, 100.0)
 viewport = core.Viewport(canvas, 0, 0, 512, 512)
 camera   = glm.Camera("perspective", theta=-20, phi=2.5)
 colormap = transform.Colormap("magma")
-depth    = transform.Depth()
+depth    = transform.Depth("faces")
 
-V,F = glm.mesh("data/bunny-4096.obj")
+V, F = glm.mesh("data/bunny-4096.obj")
 EC = core.Color(0.00, 0.00, 0.00, 1.00)
 FC = colormap(depth)
+mesh = visual.Mesh(V, F, None, FC, EC, 0.25)
 
-mesh = visual.Mesh(viewport, V, F, FC, EC, 0)
-mesh.render(camera.transform)
-
-camera.connect(viewport._axes, "motion",  mesh.render)
+mesh.render(viewport, camera.model, camera.view, camera.proj)
+camera.connect(viewport, "motion",  mesh.render)
 plt.show()
 

@@ -17,7 +17,7 @@ canvas   = core.Canvas(512, 512, 100.0)
 viewport = core.Viewport(canvas, 0, 0, 512, 512)
 camera   = glm.Camera("perspective", theta=10, phi=10)
 colormap = transform.Colormap("magma")
-depth    = transform.ScreenZ()
+depth    = transform.Depth("positions")
 
 n = 5_000
 positions = glm.vec3(n)
@@ -27,24 +27,21 @@ fill_colors = colormap(depth)
 black = core.Color(0,0,0,1)
 
 _sizes = np.random.uniform(25, 50, n)
-sizes = glm.scalar(n)
+sizes = np.ones(n)
 sizes[...] = _sizes
 
 _linewidths = 0.25
-linewidths = glm.scalar(1)
+linewidths = np.ones(1)
 linewidths[...] = _linewidths
 
-def update(transform):
+def update(viewport, model, view, proj):
     sizes[...] =  1/(camera.zoom**2) * _sizes
     linewidths[...] = 1/(camera.zoom) * _linewidths
-    points.render(transform)
+    points.render(viewport, model, view, proj)
 
-points = visual.Points(viewport, positions, sizes,
-                       fill_colors, black, linewidths)
-points.render(camera.transform)
-
-
-camera.connect(viewport._axes, "motion",  points.render)
-camera.connect(viewport._axes, "scroll",  update)
+points = visual.Points(positions, sizes, fill_colors, black, linewidths)
+points.render(viewport, camera.model, camera.view, camera.proj)
+camera.connect(viewport, "motion",  points.render)
+camera.connect(viewport, "scroll",  update)
 plt.show()
 

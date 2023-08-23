@@ -3,7 +3,7 @@
 # Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
 # -----------------------------------------------------------------------------
 import numpy as np
-from gsp.glm import mat4
+from gsp.glm import ndarray
 from gsp.core import Buffer
 from gsp.transform import Transform
 
@@ -11,7 +11,7 @@ class Mat4(Transform):
 
     def __init__(self, data : bytes):
         Transform.__init__(self)
-        self._data = np.frombuffer(data, dtype=np.float32).view(mat4)
+        self._data = np.frombuffer(data, dtype=np.float32).view(ndarray.mat4)
 
     def set_data(self, data):
         self._data[...] = np.frombuffer(data, np.float32)

@@ -45,16 +45,16 @@ class Colormap(Transform):
         return transform
 
 
-    def evaluate(self, uniforms, attributes):
+    def evaluate(self, buffers):
         """
         Evaluate the transform
         """
         
         if self._next:
-            buffer = self._next.evaluate(uniforms, attributes)
+            value = self._next.evaluate(buffers)
         else:
-            buffer = self._buffer  
+            value = self._buffer  
         cmap = plt.get_cmap(self._colormap)
-        norm = mpl.colors.Normalize(vmin=buffer.min(), vmax=buffer.max())
-        return cmap(norm(buffer))
+        norm = mpl.colors.Normalize(vmin=value.min(), vmax=value.max())
+        return cmap(norm(value))
 

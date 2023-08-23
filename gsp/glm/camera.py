@@ -48,18 +48,18 @@ class Camera():
         self.zoom = 1
         self.zoom_max = 5.0
         self.zoom_min = 0.1
-        self.transform = mat4()
         
         if mode == "ortho":
             self.proj = glm.ortho(-1,+1,-1,+1, self.near, self.far)
             self.trackball = None
-            self.transform[...] = self.proj
+            self.view = np.eye(4)
+            self.model = np.eye(4)
         else:
             self.trackball = Trackball(theta, phi)
             self.proj = glm.perspective(
                 self.aperture, self.aspect, self.near, self.far)
-            self.view = glm.translate(0, 0, -zdist) @ glm.scale(scale)
-            self.transform[...] = self.proj @ self.view @ self.trackball.model.T
+            self.view = glm.translate((0, 0, -zdist)) @ glm.scale((scale,scale,scale))
+            self.model = self.trackball.model.T
         self.updates = {"motion"  : [],
                         "scroll"  : [],
                         "press"   : [],
@@ -71,10 +71,10 @@ class Camera():
         """
 
         for update in self.updates[event]:
-            update(self.transform)
+            update(self.viewport, self.model, self.view, self.proj)
         
         
-    def connect(self, axes, event, update):
+    def connect(self, viewport, event, update):
         """
         axes : matplotlib.Axes
            Axes where to connect this camera to
@@ -87,8 +87,10 @@ class Camera():
            (transform is a 4x4 matrix).
         """
         
-        self.figure = axes.get_figure()
-        self.axes = axes
+        self.viewport = viewport
+        self.axes = viewport._axes
+        self.figure = self.axes.get_figure()
+        
         # self.update = update
         if update not in self.updates[event]:
             self.updates[event].append(update)
@@ -110,7 +112,6 @@ class Camera():
         if self.trackball is not None:
             self.axes.format_coord = format_coord
                 
-
         
     def on_scroll(self, event):
         """
@@ -152,8 +153,8 @@ class Camera():
         button, x, y = event.button, event.xdata, event.ydata
         dx, dy = x-self.mouse[1], y-self.mouse[2]
         self.mouse = button, x, y
-        self.trackball.drag_to(x, y, dx, dy)        
-        self.transform[...] = self.proj @ self.view @ self.trackball.model.T
+        self.trackball.drag_to(x, y, dx, dy)
+        self.model = self.trackball.model.T
         self.update("motion")
         self.figure.canvas.draw()
 

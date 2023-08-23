@@ -9,91 +9,80 @@ from gsp.core import Buffer
 
 class Transform:
 
-    def __init__(self, base : Transform = None,
-                       next : Transform = None,
-                       buffer : Buffer = None):
-        """A Transform allows to apply an arbitratry transformation to
+    def __init__(self, base = None,
+                       next = None,
+                       buffer = None):
+        """
+        A Transform allows to apply an arbitratry transformation to
         a buffer. Any transform can be bound to a specific buffer and
         used in place of a Buffer where needed. Several transforms can
         be chained or composed together.
 
-        Parameters:
-
-         base:
-        
-           The base transform this transform is based on. When non
-           null, all transform parameters are read from the base.
-
-         next:
-        
-           A transformation can be chained with another transform
-           (`next`). In such case, the **`next` transform is applied
-           first** and result is passed to the current transform.
-
-         buffer:
-
-           Buffer on which to apply the transform. When non null, the
-           transformation is bound and cannot be modified anymore.
-
+        Parameters
+        ----------
+        base : Transform 
+            The base transform this transform is based on. When non
+            null, all transform parameters are read from the base.
+        next : Transform 
+            A transformation can be chained with another transform
+            (`next`). In such case, the **`next` transform is applied
+            first** and result is passed to the current transform.
+        buffer : Buffer 
+            Buffer on which to apply the transform. When non null, the
+            transformation is bound and cannot be modified anymore.
         """
         self._base = base
         self._next = next
         self._buffer = buffer
 
-    def set_base(self, base : Transform = None):
-        """Set a new base for the transform
+    def set_base(self, base = None):
+        """
+        Set a new base for the transform
 
-           Parameters:
-
-            base:
-        
-             The base transform this transform is based on
+        Parameters
+        ----------
+        base : Transform
+            The base transform this transform is based on
         """
         
         self._base = base
 
-    def set_next(self, next : Transform = None):
-        """Compose transform with `next` that will be applied before
+    def set_next(self, next = None):
+        """
+        Compose transform with `next` that will be applied before
         this one.
 
-        Parameters:
-
-         next:
-
-          Next transform
-
+        Parameters
+        ----------
+        next : Transform 
+            Next transform
         """
 
         self._next = next
         
-    def set_buffer(self, buffer : Buffer = None):
+    def set_buffer(self, buffer = None):
         """Bind the transform to the given buffer.
 
-        Parameters:
-
-         buffer:
-
-          Buffer to bind
+        Parameters
+        ----------
+        buffer : Buffer 
+            Buffer to bind
         """
 
         self._buffer = buffer
 
-    def evaluate(self, uniforms, attributes):
+    def evaluate(self, buffer):
         """
         Evaluate the transform
+
+        Parameters
+        ----------
+        buffer : Buffer 
+            Buffer to bind
         """
         
         raise NotImplementedError("Generic transforms cannot be evaluated")
 
-    def is_jit(self):
-        """
-        Indicate whether transform is jit (just in time)
-        """
-        if self._next:
-            return False or self._next.is_jit()
-        else:
-            return False
-    
     @property
     def base(self):
         """

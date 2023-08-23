@@ -3,90 +3,127 @@
 # Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
 # -----------------------------------------------------------------------------
 import numpy as np
-from gsp.glm import mat4, tracked_array
-from gsp.transform import Transform, Mat4
-from gsp.core import Viewport, Buffer, Color
+from gsp import glm
 from gsp.visual import Visual
+from gsp.core import Viewport, Buffer, Color
 
 
 class Pixels(Visual):
+    """
+    !!! Note "Quick documentation"
 
-    def __init__(self, viewport : Viewport,
-                       positions : Transform | Buffer,
-                       colors : Transform | Buffer | Color = Color(0,0,0,1)):
+        === "Definition"
+
+            ![](../../assets/simple-pixels.png){ width="33%" align=right }
+
+            Pixels are the smallest entities that can be rendered on
+            screen (pixel or fragment) or on paper (dot). They can be
+            colored but have no dimension and correspond to the true
+            mathematical notion of a point.
+
+        === "Code example"
+
+            ```python
+            import numpy as np
+            import matplotlib.pyplot as plt
+            from gsp import glm, core, visual, transform
+
+            canvas   = core.Canvas(512, 512, 100.0)
+            viewport = core.Viewport(canvas, 0, 0, 512, 512)
+            camera   = glm.Camera("perspective", theta=10, phi=10)
+
+            P = glm.vec3(250_000)
+            P.xyz = np.random.uniform(-1, +1, (len(P),3))
+            pixels = visual.Pixels(P)
+            pixels.render(viewport, camera.transform)
+            camera.connect(viewport, "motion",  pixels.render)
+            plt.savefig("../docs/assets/simple-pixels.png")
+            plt.show()
+            ```
+    """
+
+    def __init__(self, positions,
+                       colors  = Color(0,0,0,1)):
         """
-        Collection of pixels.
-
-        Parameters:
-
-          viewport:
-
-            Viewport where this visual will be renderdd
+        Create a visual of n pixels at given *positions* with
+        given *colors*.
         
-          positions:
-        
+        Parameters
+        ----------
+        positions : Transform | Buffer
             Pixels position (vec3)
-
-          colors:
-        
+        colors : Transform | Buffer | Color
             Pixels colors (vec4)
+
+        !!! Note "Notes on matplotlib implementation"
+
+            Even with antialias off, marker coverage leaks on
+            neighbouring pixels if the position is not an exact
+            divider of viewport size (in pixels). Vertices coordinates
+            vould be rounded at time of rendering but it is easier to
+            set a very small size whose coverage is more or less
+            guaranteed to be one pixel. However, this size seems to be
+            wrong on Windows, dependng on the screen size.
         """
 
-        Visual.__init__(self, viewport)
-
-        self.set_attribute("positions", positions)
+        Visual.__init__(self)
+        self.set_variable("positions", positions)
         self.set_variable("colors", colors)
+
+    def render(self, viewport, model=None, view=None, proj=None):
+        """
+        Render the visual on *viewport* using the given *model*,
+        *view*, *proj* matrices
+
+        Parameters
+        ----------
+        viewport : Viewport
+            Viewport where to render the visual
+        model : mat4
+            Model matrix to use for rendering
+        view : mat4
+            View matrix to use for rendering
+        proj : mat4
+            Projection matrix to use for rendering
+        """
         
-        kwargs = {}
-        if self.is_uniform("colors"):
-            kwargs["facecolors"] = colors
-        kwargs["marker"] = ","
+        # We store the model/view/proj matrices for the resize_event below
+        if model is not None:
+            self._model = model
+        model = self._model
+        
+        if view is not None:
+            self._view = view
+        view = self._view
+
+        if proj is not None:
+            self._proj = proj
+        proj = self._proj
+        
+        transform = proj @ view @ model
+        self.set_variable("viewport", viewport)
+
+        
+        # Create the collection if necessary
+        if viewport not in self._viewports:
+            size = 0.25*(72/viewport._canvas._dpi)**2
+            collection = viewport._axes.scatter( [],[], size)
+            collection.set_antialiaseds(True)
+            collection.set_linewidths(0)
+            self._viewports[viewport] = collection
+            viewport._axes.add_collection(collection, autolim=False)
+
+            # This is necessary for measure transforms that need to be
+            # kept up to date with canvas size
+            canvas = viewport._canvas._figure.canvas
+            canvas.mpl_connect('resize_event',
+                               lambda event: self.render(viewport))
             
-        # Even with antialias off, marker coverage leaks on
-        # neighbouring pixels if the position is not an exact divider
-        # of viewport size (in pixels). We could round vertices at
-        # time of rendering but it is easier to set a very small size
-        # whose coverage is more or less guaranteed to be one pixel.
-
-        # WARNING: the size seems to be wrong on Windows or on different screen
-        # Since the co
-        size = 0.25*(72/self._viewport._canvas._dpi)**2
-        self._scatter = self._viewport._axes.scatter( [],[], size, **kwargs)
-        self._scatter.set_antialiaseds(True)
-        self._scatter.set_linewidths(0)
-        
-        canvas = self._viewport._canvas._figure.canvas
-        canvas.mpl_connect('resize_event', lambda event: self.render())
-
-
-    def render(self, transform : Transform = None):
-        """
-        Render the visual using given transform
-
-        Parameters:
-
-          transform: 
-
-            Model/view/projection transform to use
-        """
-
-        # Update transform
-        if transform is not None:
-            self._transform.set_data(transform)
-
-        # Get positions
-        positions = self.get_attribute("positions")
-        if self.is_transform("positions"):
-            positions = positions.evaluate(self._uniforms,
-                                           self._attributes)
-        else:
-            positions = np.asanyarray(positions)
+        collection = self._viewports[viewport]
+        positions = self.eval_variable("positions")
         positions = positions.reshape(-1,3)
-        positions = self._transform(positions)[:,:2]
-        self._scatter.set_offsets(positions[:,:2])
-
-        # Set attributes
-        if (colors := self.eval_variable("colors")) is not None:
-            self._scatter.set_facecolors(colors)
-
-            
+        positions = glm.to_vec3(glm.to_vec4(positions) @ transform.T)
+        collection.set_offsets(positions[:,:2])
+        colors = self.eval_variable("colors")
+        if colors is not None:
+            collection.set_facecolors(colors)

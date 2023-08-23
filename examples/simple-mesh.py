@@ -15,12 +15,13 @@ canvas   = core.Canvas(512, 512, 100.0)
 viewport = core.Viewport(canvas, 0, 0, 512, 512)
 camera   = glm.Camera("perspective", theta=-20, phi=2.5)
 
-V,F = glm.mesh("data/bunny-4096.obj")
+V,Vi = glm.mesh("data/bunny-4096.obj")
 EC = core.Color(0.00, 0.00, 0.00, 1.00)
 FC = core.Color(1.00, 1.00, 1.00, 0.85)
-mesh = visual.Mesh(viewport, V, F, FC, EC, 0.25)
-mesh.render(camera.transform)
+mesh = visual.Mesh(V, Vi, None, FC, EC, 0.25)
+mesh.render(viewport, camera.model, camera.view, camera.proj)
 
-camera.connect(viewport._axes, "motion",  mesh.render)
+camera.connect(viewport, "motion",  mesh.render)
+# plt.savefig("../docs/assets/simple-mesh.png")
 plt.show()
 

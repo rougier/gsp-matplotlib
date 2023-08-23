@@ -2,9 +2,7 @@
 # Graphic Server Protocol (GSP)
 # Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
 # -----------------------------------------------------------------------------
-"""
-"""
-
+""" Simpel markers """
 import numpy as np
 import matplotlib.pyplot as plt
 from gsp import core, visual, transform, glm
@@ -30,9 +28,10 @@ V["type"] = [core.Marker.heart, core.Marker.club,
 V["color"] = [(1,0,0,1), (0,0,0,1), (1,0,0,1), (0,0,0,1)]*(n//4)
 black, white = core.Color(0,0,0,1), core.Color(0,0,0,1)
 
-points = visual.Markers(viewport, V["position"], V["type"], V["size"],
-                                  V["angle"], V["color"], black, 0)
-points.render( camera.transform )
+points = visual.Markers(V["position"], V["type"], V["size"],
+                        None, V["angle"], V["color"], black, 0)
+points.render(viewport, camera.model, camera.view, camera.proj)
+# plt.savefig("../docs/assets/simple-markers.png")
 plt.show()
 
 
