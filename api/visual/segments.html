@@ -9,17 +9,17 @@
       
       
       
-        <link rel="prev" href="pixels.html">
+        <link rel="prev" href="markers.html">
       
       
-        <link rel="next" href="markers.html">
+        <link rel="next" href="mesh.html">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.14">
     
     
       
-        <title>Points - Graphic Server Protocol</title>
+        <title>Segments - Graphic Server Protocol</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#gsp.visual.Points" class="md-skip">
+        <a href="#gsp.visual.Segments" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Points
+              Segments
             
           </span>
         </div>
@@ -534,68 +534,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Points
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="points.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="points.html" class="md-nav__link">
         Points
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#gsp.visual.Points" class="md-nav__link">
-    Points
-  </a>
-  
-    <nav class="md-nav" aria-label="Points">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#gsp.visual.points.Points.__init__" class="md-nav__link">
-    __init__()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gsp.visual.points.Points.render" class="md-nav__link">
-    render()
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -619,11 +562,68 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="segments.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Segments
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="segments.html" class="md-nav__link md-nav__link--active">
         Segments
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gsp.visual.Segments" class="md-nav__link">
+    Segments
+  </a>
+  
+    <nav class="md-nav" aria-label="Segments">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gsp.visual.segments.Segments.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gsp.visual.segments.Segments.render" class="md-nav__link">
+    render()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -834,22 +834,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#gsp.visual.Points" class="md-nav__link">
-    Points
+  <a href="#gsp.visual.Segments" class="md-nav__link">
+    Segments
   </a>
   
-    <nav class="md-nav" aria-label="Points">
+    <nav class="md-nav" aria-label="Segments">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gsp.visual.points.Points.__init__" class="md-nav__link">
+  <a href="#gsp.visual.segments.Segments.__init__" class="md-nav__link">
     __init__()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#gsp.visual.points.Points.render" class="md-nav__link">
+  <a href="#gsp.visual.segments.Segments.render" class="md-nav__link">
     render()
   </a>
   
@@ -878,14 +878,14 @@
   
 
 
-  <h1>Points</h1>
+  <h1>Segments</h1>
 
 <div class="doc doc-object doc-class">
 
 
 
-<h2 id="gsp.visual.Points" class="doc doc-heading">
-        <span class="doc doc-object-name doc-class-name">Points</span>
+<h2 id="gsp.visual.Segments" class="doc doc-heading">
+        <span class="doc doc-object-name doc-class-name">Segments</span>
 
 
 </h2>
@@ -896,32 +896,37 @@
   
       <div class="admonition note">
 <p class="admonition-title">Quick documentation</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="gsp.visual.Points--__tabbed_1_1" name="gsp.visual.Points--__tabbed_1" type="radio" /><input id="gsp.visual.Points--__tabbed_1_2" name="gsp.visual.Points--__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="gsp.visual.Points--__tabbed_1_1">Definition</label><label for="gsp.visual.Points--__tabbed_1_2">Code example</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="gsp.visual.Segments--__tabbed_1_1" name="gsp.visual.Segments--__tabbed_1" type="radio" /><input id="gsp.visual.Segments--__tabbed_1_2" name="gsp.visual.Segments--__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="gsp.visual.Segments--__tabbed_1_1">Definition</label><label for="gsp.visual.Segments--__tabbed_1_2">Code example</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><img align="right" alt="" src="../../assets/simple-points.png" width="33%" /></p>
-<p>Points are discs with a given size (diameter) and posses a
-surface that can be filled and stroked. They always face the
-viewer such that their rendered shape is a disc,
-independentely of any transform.</p>
+<p><img align="right" alt="" src="../../assets/simple-segments.png" width="33%" /></p>
+<p>Segments are line segments between two vertices. They can
+be colored and styled (dash pattern). They possess a
+thickness but always face the viewer such that their
+apparent thickness is constant. Their end points (caps)
+can be styled following the <a href="https://www.w3.org/TR/SVG2/painting.html">SVG
+specification</a>
+(butt, round or cap).</p>
 </div>
 <div class="tabbed-block">
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span> <span class="nn">gsp</span> <span class="kn">import</span> <span class="n">glm</span><span class="p">,</span> <span class="n">core</span><span class="p">,</span> <span class="n">visual</span><span class="p">,</span> <span class="n">transform</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span> <span class="nn">gsp</span> <span class="kn">import</span> <span class="n">core</span><span class="p">,</span> <span class="n">visual</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">glm</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">canvas</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">Canvas</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">viewport</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">Viewport</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">512</span><span class="p">,</span><span class="mi">512</span><span class="p">)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">viewport</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">Viewport</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">camera</span> <span class="o">=</span> <span class="n">glm</span><span class="o">.</span><span class="n">Camera</span><span class="p">(</span><span class="s2">&quot;ortho&quot;</span><span class="p">)</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">n</span> <span class="o">=</span> <span class="mi">600</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">P</span> <span class="o">=</span> <span class="n">glm</span><span class="o">.</span><span class="n">vec3</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">P</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.95</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">P</span><span class="o">.</span><span class="n">xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">10.125</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">points</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">Points</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">sizes</span><span class="p">)</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="n">points</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">viewport</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">transform</span><span class="p">)</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">n</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">P</span> <span class="o">=</span> <span class="n">glm</span><span class="o">.</span><span class="n">vec3</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">P</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">P</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span> <span class="o">+</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">P</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">P</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.1</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">LW</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">points</span> <span class="o">=</span> <span class="n">visual</span><span class="o">.</span><span class="n">Segments</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">line_widths</span><span class="o">=</span><span class="n">LW</span><span class="p">)</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="n">points</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">viewport</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">view</span><span class="p">,</span> <span class="n">camera</span><span class="o">.</span><span class="n">proj</span><span class="p">)</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </span></code></pre></div>
 </div>
 </div>
@@ -946,25 +951,23 @@ independentely of any transform.</p>
 
 
 
-<h3 id="gsp.visual.points.Points.__init__" class="doc doc-heading">
+<h3 id="gsp.visual.segments.Segments.__init__" class="doc doc-heading">
         <span class="doc doc-object-name doc-function-name">__init__</span>
 
 
 </h3>
 <div class="highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">positions</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">sizes</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">fill_colors</span><span class="o">=</span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">line_colors</span><span class="o">=</span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">line_widths</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">line_caps</span><span class="o">=</span><span class="n">LineCap</span><span class="o">.</span><span class="n">round</span><span class="p">,</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">line_colors</span><span class="o">=</span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">line_widths</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span>
 </span></code></pre></div>
 
   <div class="doc doc-contents ">
   
-      <p>Create a visual of n points at given <em>positions</em> with
-given <em>sizes</em>, <em>flll_colors</em>., <em>line_colors</em> and
-<em>line_widths</em>.</p>
+      <p>Create a visual of n segments at given <em>positions</em> with
+given <em>line_colors</em>, <em>line_widths</em> and <em>line_caps</em>.</p>
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -988,23 +991,13 @@ given <em>sizes</em>, <em>flll_colors</em>., <em>line_colors</em> and
           </td>
         </tr>
         <tr>
-          <td><code>sizes</code></td>
+          <td><code>line_caps</code></td>
           <td>
-                <code>Transform | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a> | <a class="autorefs autorefs-internal" title="gsp.core.Measure" href="../core/types.html#gsp.core.Measure">Measure</a></code>
+                <code>Transform | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a></code>
           </td>
-          <td><p>Point sizes (float)</p></td>
+          <td><p>Line caps (vec2)</p></td>
           <td>
-                <code>25.0</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>fill_colors</code></td>
-          <td>
-                <code>Transform | <a class="autorefs autorefs-internal" title="gsp.core.Buffer" href="../core/buffer.html#gsp.core.Buffer">Buffer</a> | <a class="autorefs autorefs-internal" title="gsp.core.Color" href="../core/types.html#gsp.core.Color">Color</a></code>
-          </td>
-          <td><p>Points fill colors (vec4)</p></td>
-          <td>
-                <code>Color(0, 0, 0, 1)</code>
+                <code>LineCap.round</code>
           </td>
         </tr>
         <tr>
@@ -1024,7 +1017,7 @@ given <em>sizes</em>, <em>flll_colors</em>., <em>line_colors</em> and
           </td>
           <td><p>Points line colors (vec4)</p></td>
           <td>
-                <code>0</code>
+                <code>1</code>
           </td>
         </tr>
     </tbody>
@@ -1038,7 +1031,7 @@ given <em>sizes</em>, <em>flll_colors</em>., <em>line_colors</em> and
 
 
 
-<h3 id="gsp.visual.points.Points.render" class="doc doc-heading">
+<h3 id="gsp.visual.segments.Segments.render" class="doc doc-heading">
         <span class="doc doc-object-name doc-function-name">render</span>
 
 

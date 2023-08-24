@@ -635,6 +635,20 @@
   
   
     <li class="md-nav__item">
+      <a href="api/visual/segments.html" class="md-nav__link">
+        Segments
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="api/visual/mesh.html" class="md-nav__link">
         Mesh
       </a>
@@ -901,9 +915,6 @@
 <p><strong>Depth buffer</strong>: matplotlib does not have a proper <a href="https://en.wikipedia.org/wiki/Z-buffering">depth buffer</a> that allows to test individual pixels. This means points/lines/triangles need to be sorted in order to draw them from back to front. Most of the time, this does the trick but there exist some situations where it is impossible to avoid problems. For example, consider two triangles that intersect each other. In in such a case, we have to decide arbitrarily which triangle will be drawn on top of the other.</p>
 </li>
 <li>
-<p><strong>Texture mapping</strong>: matplotlib can manipulate images to some extent but it is not really possible to map a texture to a triangle and this limits severely the effect we can achieve with texture. Crude approximation can be achieved using higher tessellation level but this comes at the cost of speed.</p>
-</li>
-<li>
 <p><strong>Trilinear interpolation</strong>: there is no easy (nor fast) way to interpolate a color inside a triangle and this limits the kind of shading we can use. Namely, we can have flat shading (per face) but not <a href="https://en.wikipedia.org/wiki/Gouraud_shading">Gouraud</a> (per vertex) nor <a href="https://en.wikipedia.org/wiki/Phong_shading">Phong</a> (per pixel).</p>
 </li>
 </ul>
@@ -929,7 +940,7 @@
 </ul>
 <p><strong>One dimension</strong></p>
 <ul class="task-list">
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> visual.Segments - create a collection of line segments</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> visual.Segments - create a collection of line segments</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> visual.Lines - create a collection of straight lines</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> visual.Paths - create a collection of smooth lines</li>
 </ul>
@@ -980,8 +991,8 @@
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a class="autorefs autorefs-internal" href="api/transform/screen.html#gsp.transform.Screen">transform.Screen</a> - Screen coordinates</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a class="autorefs autorefs-internal" href="api/transform/screen.html#gsp.transform.ScreenX">transform.ScreenX</a> - Screen X coordinates</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a class="autorefs autorefs-internal" href="api/transform/screen.html#gsp.transform.ScreenY">transform.ScreenY</a> - Screen X coordinates</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a class="autorefs autorefs-internal" href="api/transform/screen.html#gsp.transform.ScreenZ">transform.ScreenZ</a> - Screen X coordinates</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a class="autorefs autorefs-internal" href="api/transform/screen.html#gsp.transform.ScreenY">transform.ScreenY</a> - Screen Y coordinates</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <a class="autorefs autorefs-internal" href="api/transform/screen.html#gsp.transform.ScreenZ">transform.ScreenZ</a> - Screen Z coordinates</li>
 </ul>
 <p><strong>Measure</strong>  (<code>T[n] → T[n]</code>)</p>
 <ul class="task-list">
