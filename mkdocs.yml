@@ -73,6 +73,7 @@ nav:
       - api/visual/pixels.md
       - api/visual/points.md
       - api/visual/markers.md
+      - api/visual/segments.md
       - api/visual/mesh.md
    - Transform:
      - api/transform/transform.md

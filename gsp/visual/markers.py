@@ -17,10 +17,10 @@ class Markers(Visual):
 
             ![](../../assets/simple-markers.png){ width="33%" align=right }
 
-            Points are discs with a given size (diameter) and posses a
-            surface that can be filled and stroked. They always face the
-            viewer such that their rendered shape is a disc,
-            independentely of any transform.
+            Markers are arbitrary two-dimensional polygons
+            (including discs) with a given size that possess a surface
+            that can be filled and stroked. They are flat but can be
+            oriented towards any direction in space.
 
         === "Code example"
 

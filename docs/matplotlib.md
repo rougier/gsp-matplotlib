@@ -5,8 +5,6 @@ The matplotlib implementation is only a partial implementation because of severa
 
 - **Depth buffer**: matplotlib does not have a proper [depth buffer] that allows to test individual pixels. This means points/lines/triangles need to be sorted in order to draw them from back to front. Most of the time, this does the trick but there exist some situations where it is impossible to avoid problems. For example, consider two triangles that intersect each other. In in such a case, we have to decide arbitrarily which triangle will be drawn on top of the other.
 
-- **Texture mapping**: matplotlib can manipulate images to some extent but it is not really possible to map a texture to a triangle and this limits severely the effect we can achieve with texture. Crude approximation can be achieved using higher tessellation level but this comes at the cost of speed.
-
 - **Trilinear interpolation**: there is no easy (nor fast) way to interpolate a color inside a triangle and this limits the kind of shading we can use. Namely, we can have flat shading (per face) but not [Gouraud] (per vertex) nor [Phong] (per pixel).
 
 
@@ -40,7 +38,7 @@ The matplotlib implementation relies a lot on numpy arrays because they're compa
 
 **One dimension**
 
-* [ ] visual.Segments - create a collection of line segments
+* [x] visual.Segments - create a collection of line segments
 * [ ] visual.Lines - create a collection of straight lines
 * [ ] visual.Paths - create a collection of smooth lines
 
@@ -93,8 +91,8 @@ The matplotlib implementation relies a lot on numpy arrays because they're compa
 
   * [x] [transform.Screen][gsp.transform.Screen] - Screen coordinates
   * [x] [transform.ScreenX][gsp.transform.ScreenX] - Screen X coordinates
-  * [x] [transform.ScreenY][gsp.transform.ScreenY] - Screen X coordinates
-  * [x] [transform.ScreenZ][gsp.transform.ScreenZ] - Screen X coordinates
+  * [x] [transform.ScreenY][gsp.transform.ScreenY] - Screen Y coordinates
+  * [x] [transform.ScreenZ][gsp.transform.ScreenZ] - Screen Z coordinates
 
 **Measure**  (`T[n] → T[n]`)
 

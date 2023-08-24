@@ -7,4 +7,4 @@ from . data import Data
 from . buffer import Buffer
 from . canvas import Canvas
 from . viewport import Viewport
-from . types import Type, Color, Marker, Measure
+from . types import Type, Color, Marker, Measure, LineCap

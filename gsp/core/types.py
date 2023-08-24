@@ -182,6 +182,11 @@ class Marker(IntEnum):
         return cls.__markers__[marker]
 
 
+class LineCap(IntEnum):
+    butt:  int = 1
+    round: int = 2
+    cap:   int = 3
+    
 class Shading(IntEnum):
     flat : int    = 1
     gouraud : int = 2

@@ -25,6 +25,7 @@ points = visual.Markers(P, [core.Marker.star]*n, sizes=256,
                         fill_colors = colormap(depth))
 points.render(viewport, camera.model, camera.view, camera.proj)
 camera.connect(viewport, "motion",  points.render)
+plt.savefig("../docs/assets/simple-markers.png")
 plt.show()
 
 
