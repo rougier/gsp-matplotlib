@@ -20,14 +20,14 @@ class Transform:
 
         Parameters
         ----------
-        base : Transform 
+        base : Transform
             The base transform this transform is based on. When non
             null, all transform parameters are read from the base.
-        next : Transform 
+        next : Transform
             A transformation can be chained with another transform
             (`next`). In such case, the **`next` transform is applied
             first** and result is passed to the current transform.
-        buffer : Buffer 
+        buffer : Buffer
             Buffer on which to apply the transform. When non null, the
             transformation is bound and cannot be modified anymore.
         """
@@ -44,7 +44,7 @@ class Transform:
         base : Transform
             The base transform this transform is based on
         """
-        
+
         self._base = base
 
     def set_next(self, next = None):
@@ -54,18 +54,18 @@ class Transform:
 
         Parameters
         ----------
-        next : Transform 
+        next : Transform
             Next transform
         """
 
         self._next = next
-        
+
     def set_buffer(self, buffer = None):
         """Bind the transform to the given buffer.
 
         Parameters
         ----------
-        buffer : Buffer 
+        buffer : Buffer
             Buffer to bind
         """
 
@@ -77,10 +77,10 @@ class Transform:
 
         Parameters
         ----------
-        buffer : Buffer 
+        buffer : Buffer
             Buffer to bind
         """
-        
+
         raise NotImplementedError("Generic transforms cannot be evaluated")
 
     @property
@@ -88,7 +88,7 @@ class Transform:
         """
         The base transform this transform is based on
         """
-        
+
         if self._base:
             return self._base.base
         return self
@@ -98,23 +98,23 @@ class Transform:
         """
         Buffer on which to apply the transform.
         """
-        
+
         return self._buffer
-    
+
     @property
     def next(self):
         """
         The next transform in the chain of transforms
         """
-        
+
         return self._next
-    
+
     @property
     def last(self):
         """
         The last transform in the chain of transforms
         """
-        
+
         last = self
         while last._next: last = last._next
         return last
@@ -130,7 +130,7 @@ class Transform:
         """
         Copy the transform
         """
-        
+
         transform = self.__class__()
         transform.set_buffer(self._buffer)
         transform.set_base(self.base)
@@ -142,7 +142,7 @@ class Transform:
         """
         Chain (Transform) or bind (Buffer) self and other.
         """
-        
+
         transform = self.copy()
         if isinstance(other, Transform):
             transform.set_next(other.copy())
@@ -178,4 +178,3 @@ class Transform:
     def __div__(self, other):
         from gsp.transform import Div
         return Div(self, other)
-
