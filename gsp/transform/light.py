@@ -42,11 +42,11 @@ class Light(Transform):
         self._ambient_color = np.asanyarray(ambient_color)
         self._ambient_strength = self._ambient_color[3]
         self._ambient_color[3] = 1
-        
+
         self._diffuse_color = np.asanyarray(diffuse_color)
         self._diffuse_strength = self._diffuse_color[3]
         self._diffuse_color[3] = 1
-         
+
         self._specular_color = np.asanyarray(specular_color)
         self._shininess = self._specular_color[3]
         self._specular_color[3] = 1
@@ -61,7 +61,7 @@ class Light(Transform):
         transform._specular_color = self._specular_color
         transform._shininess = self._shininess
         return transform
-        
+
     def evaluate(self, buffers):
 
         if self._next:
@@ -71,15 +71,15 @@ class Light(Transform):
 
         # Faces center
         C = F.mean(axis=1)
-    
+
         # Faces normal
         N = glm.normalize(np.cross(F[:,2]-F[:,0], F[:,1]-F[:,0]))
-    
+
         # Relative light direction
         D = glm.normalize(C - self._direction)
-    
+
         # Diffuse term
-        diffuse = glm.clip((N*D).sum(-1).reshape(-1,1))
+        diffuse = glm.clamp((N*D).sum(-1).reshape(-1,1))
 
         # Specular term
         specular = 0
@@ -88,7 +88,7 @@ class Light(Transform):
 
         ambient_color = glm.sRGBA_to_RGBA(self._ambient_color)
         diffuse_color = glm.sRGBA_to_RGBA(self._diffuse_color)
-        specular_color = glm.sRGBA_to_RGBA(self._specular_color)            
+        specular_color = glm.sRGBA_to_RGBA(self._specular_color)
         color = (             ambient_color * self._ambient_strength
                  + diffuse *  diffuse_color * self._diffuse_strength
                  + specular * specular_color)
