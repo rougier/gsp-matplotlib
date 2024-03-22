@@ -9,8 +9,8 @@ from gsp.transform import Transform
 class Visual:
     def __init__(self):
         """ Generic visual """
-        
-        self._variables = {} 
+
+        self._variables = {}
         self._viewports = {}
 
         self._model = np.eye(4)
@@ -26,7 +26,7 @@ class Visual:
         name : string
             Name of the variable to store
         value : any
-            Value of the variable to store        
+            Value of the variable to store
         """
         self._variables[name] = value
 
@@ -39,11 +39,11 @@ class Visual:
         name : string
             Name of the variable to retrieve
         """
-        
+
         if name in self._variables.keys():
             return self._variables[name]
         raise IndexError(f"Unknown variable ({name})")
-            
+
     def eval_variable(self, name):
         """
         Evaluate and return variable *name*
