@@ -28,8 +28,14 @@ V["type"] = [core.Marker.heart, core.Marker.club,
 V["color"] = [(1,0,0,1), (0,0,0,1), (1,0,0,1), (0,0,0,1)]*(n//4)
 black, white = core.Color(0,0,0,1), core.Color(0,0,0,1)
 
-points = visual.Markers(V["position"], V["type"], V["size"],
-                        None, V["angle"], V["color"], black, 0)
+points = visual.Markers(
+    positions = V["position"],
+    types = V["type"],
+    sizes = V["size"],
+    angles = V["angle"],
+    fill_colors = V["color"],
+    line_colors = black,
+    line_widths = 0)
 points.render(viewport, camera.model, camera.view, camera.proj)
 # plt.savefig("../docs/assets/simple-markers.png")
 plt.show()
