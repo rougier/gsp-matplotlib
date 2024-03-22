@@ -12,7 +12,7 @@ from gsp.core import Viewport, Buffer, Color, Measure, LineCap
 class Segments(Visual):
     """
     !!! Note "Quick documentation"
-    
+
         === "Definition"
 
             ![](../../assets/simple-segments.png){ width="33%" align=right }
@@ -24,7 +24,7 @@ class Segments(Visual):
             can be styled following the [SVG
             specification](https://www.w3.org/TR/SVG2/painting.html)
             (butt, round or cap).
-    
+
 
         === "Code example"
 
@@ -75,12 +75,12 @@ class Segments(Visual):
         self.set_variable("line_caps", line_caps)
         self.set_variable("line_colors", line_colors)
         self.set_variable("line_widths", line_widths)
-        
-        
+
+
     def render(self, viewport=None, model=None, view=None, proj=None):
         """
         Render the visual on *viewport* using the given *model*,
-        *view*, *proj* matrices
+        *view*, *proj* matrices.
 
         Parameters
         ----------
@@ -98,7 +98,7 @@ class Segments(Visual):
         if model is not None:
             self._model = model
         model = self._model
-        
+
         if view is not None:
             self._view = view
         view = self._view
@@ -106,10 +106,10 @@ class Segments(Visual):
         if proj is not None:
             self._proj = proj
         proj = self._proj
-        
+
         transform = proj @ view @ model
         self.set_variable("viewport", viewport)
-        
+
         # Create the collection if necessary
         if viewport not in self._viewports:
             collection = LineCollection([], clip_on=True, snap=False)
@@ -131,9 +131,11 @@ class Segments(Visual):
         sort_indices = np.argsort(depth)
         positions = positions[sort_indices]
         collection.set_segments(positions[...,:2])
-        self.set_variable("screen", {"positions": positions})
-        self.set_variable("depth",  {"positions": depth})
-        
+        self.set_variable("screen", {"positions": positions,
+                                     "segments": positions.mean(axis=1)})
+        self.set_variable("depth",  {"positions": positions[:2],
+                                     "segments" : depth})
+
         line_colors = self.eval_variable("line_colors")
         if isinstance(line_colors, np.ndarray) and (len(line_colors) == len(positions)):
             collection.set_edgecolors(line_colors[sort_indices])
@@ -145,4 +147,3 @@ class Segments(Visual):
             collection.set_linewidths(line_widths[sort_indices])
         else:
             collection.set_linewidths(line_widths)
-            
