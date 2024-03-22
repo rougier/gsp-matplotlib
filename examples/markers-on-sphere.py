@@ -1,8 +1,8 @@
 # -----------------------------------------------------------------------------
 # Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
+# Copyright 2023-2024 Vispy Development Team - BSD 2 Clauses licence
 # -----------------------------------------------------------------------------
-""" Simpel markers """
+""" Simple markers """
 import numpy as np
 import matplotlib.pyplot as plt
 from gsp import core, visual, transform, glm
