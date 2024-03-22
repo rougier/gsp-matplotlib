@@ -24,6 +24,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -31,11 +33,15 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.tabbed:
       alternate_style: true 
 
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 plugins:
 #  - section-index
@@ -44,16 +50,22 @@ plugins:
       handlers:
         python:
           options:
+            annotations_path: brief
             docstring_style: numpy
+            group_by_category: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            docstring_section_style: spacy
             docstring_options:
-              ignore_init_summary: no
-            merge_init_into_class: no
+              ignore_init_summary: false
+              show_root_toc_entry: false
+            merge_init_into_class: false
             show_submodules: yes
-            show_root_heading: yes
-            show_source: no
-            show_bases: no
-            show_root_full_path: no
-            show_signature_annotations: no
+            show_root_heading: true
+            show_source: false
+            show_bases: false
+            show_root_full_path: false
+            show_signature_annotations: yes
             separate_signature: yes
 
 nav:
@@ -74,6 +86,7 @@ nav:
       - api/visual/points.md
       - api/visual/markers.md
       - api/visual/segments.md
+      - api/visual/paths.md
       - api/visual/mesh.md
    - Transform:
      - api/transform/transform.md

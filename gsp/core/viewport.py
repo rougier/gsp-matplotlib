@@ -2,12 +2,24 @@
 # Graphic Server Protocol (GSP)
 # Copyright 2023 Vispy developmet team - BSD 2 Clauses licence
 # -----------------------------------------------------------------------------
+from __future__ import annotations
 import numpy as np
 from . canvas import Canvas
 from . types import Color
 
 class Viewport:
-        
+    
+    """
+    A viewport is a rectangular two-dimensional surface of a
+    canvas, located at (x, y) coordinates (bottom left corner)
+    with size equal to width × height pixels.
+
+    !!! Notes
+
+        Future implementation will allows viewports to have an
+        arbitrary rotation.
+    """
+
     def __init__(self, canvas : Canvas,
                        x :      int = 0,
                        y :      int = 0,
@@ -17,37 +29,22 @@ class Viewport:
         """
         A viewport is a rectangular two-dimensional surface of a
         canvas, located at (x, y) coordinates (bottom left corner)
-        with size equal to width×height pixels.
+        with size equal to width × height pixels.
         
-        !!! Note
-
-            Future implementation will allows viewports to have an
-            arbitrary rotation.
-
-        Parameters:
-
-          canvas:
+        Parameters
+        ----------
         
+        canvas: Canvas
             Canvas where to create the viewport
-
-          x:
-        
+        x: int
             X coordinate of the viewport bottom left corner
-        
-          y:
-        
+        y: int
             Y coordinate of the viewport bottom left corner
-        
-          width:
-
+        width: int
             Width of the viewport in pixels.
-        
-          height:
-
+        height: int
             Height of the viewport in pixels.
-
-          color:
-
+        color: Color
             Background color of the viewport
         """
 

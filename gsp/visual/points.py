@@ -10,37 +10,10 @@ from gsp.core import Viewport, Buffer, Color, Measure
 
 class Points(Visual):
     """
-    !!! Note "Quick documentation"
-    
-        === "Definition"
-
-            ![](../../assets/simple-points.png){ width="33%" align=right }
-
-            Points are discs with a given size (diameter) and posses a
-            surface that can be filled and stroked. They always face the
-            viewer such that their rendered shape is a disc,
-            independentely of any transform.
-
-        === "Code example"
-
-            ```python
-            import numpy as np
-            import matplotlib.pyplot as plt
-            from gsp import glm, core, visual, transform
-
-            canvas = core.Canvas(512, 512, 100.0)
-            viewport = core.Viewport(canvas,0,0,512,512)
-            camera = glm.Camera("ortho")
-
-            n = 600
-            P = glm.vec3(n)
-            P.x = np.linspace(0.05,0.95,n)
-            P.xy = np.linspace(0,10.125*2*np.pi,n)
-            sizes = np.linspace(0.05, 12.0,n)**2
-            points = visual.Points(P, sizes)
-            points.render(viewport, camera.transform)
-            plt.show()
-            ```
+    Points are discs with a given size (diameter) and posses a
+    surface that can be filled and stroked. They always face the
+    viewer such that their rendered shape is a disc, independentely of
+    any transform.
     """
 
     def __init__(self, positions,

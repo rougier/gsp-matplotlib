@@ -1,5 +1,5 @@
 ::: gsp.core.Buffer
     options:
-      show_root_heading: no
       members:
+      - __init__
       - set_data  

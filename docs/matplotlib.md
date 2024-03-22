@@ -39,13 +39,12 @@ The matplotlib implementation relies a lot on numpy arrays because they're compa
 **One dimension**
 
 * [x] visual.Segments - create a collection of line segments
-* [ ] visual.Lines - create a collection of straight lines
-* [ ] visual.Paths - create a collection of smooth lines
+* [ ] visual.Paths - create a collection of polylines
 
 **Two dimensions**
 
-* [ ] visual.Triangles - create a collection of triangles
 * [ ] visual.Polygons - create a collection of polygons
+* [ ] visual.Images - create a collection of images
 * [ ] visual.Glyphs - create a collection of glyphs
 
 **Three dimensions**

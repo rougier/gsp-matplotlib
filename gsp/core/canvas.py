@@ -8,37 +8,28 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 class Canvas:
+    """
+    A Canvas is a two-dimensional drawing area of size
+    width × height pixels using the specified dpi (dots per
+    inch).
+
+    !!! Note
+
+        - A canvas uses a standard color space with at least 8 bits per channel.
+        - Blending mode is alpha blending
+        - The `(0,0)` coordinates corresponds to the bottom left corner.
+        - A typographical point is 1/72 inch.
+    """
     
-    def __init__(self, width : int = 512, 
-                       height : int = 512, 
-                       dpi : float = 100.0):
+    def __init__(self, width = 512, height = 512, dpi = 100.0):
         """
-        A Canvas is a two-dimensional drawing area of size
-        width × height pixels using the specified dpi (dots per
-        inch).
-        
-        !!! Note
-
-            - A canvas uses a standard color space with at least 8
-              bits per channel.
-
-            - Blending mode is alpha blending
-
-            - The `(0,0)` coordinates corresponds to the bottom left corner.
-
-            - A typographical point is 1/72 inch.
-
-        Parameters:
-
-          width:
-        
+        Parameters
+        ----------
+        width : int
             Width of the drawing area in pixels.
-
-          height:
-        
+        height : int
             Height of the drawing area in pixels.
-
-          dpi:
+        dpi : float
             Dots per inch
         """
         
@@ -56,21 +47,21 @@ class Canvas:
         
     @property
     def size(self):
-        # figure.dpi cand canvas.dpu might be different because system
+        # figure.dpi cand canvas.dpi might be different because system
         # such as OSX will double the dpi (retina display)
         dpi = self._dpi
         return figure.get_size_inches() * dpi
 
         
-    def render(self, target : str = None):
+    def render(self, target = None):
         """
         Render the canvas to the specified target. If no target is
         specified, return a raw image as bytes.
 
-        Parameters:
+        Parameters
+        ----------
 
-          target:
-
+        target : str
             Filename of the target
         """
 

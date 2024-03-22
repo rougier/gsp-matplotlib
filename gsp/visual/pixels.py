@@ -10,36 +10,11 @@ from gsp.core import Viewport, Buffer, Color
 
 class Pixels(Visual):
     """
-    !!! Note "Quick documentation"
+    Pixels are the smallest entities that can be rendered on screen (pixel or fragment) or on paper (dot). They can be colored but have no dimension and correspond to the true mathematical notion of a point.
 
-        === "Definition"
+    !!! Notes "Notes on matplotlib implementation"
 
-            ![](../../assets/simple-pixels.png){ width="33%" align=right }
-
-            Pixels are the smallest entities that can be rendered on
-            screen (pixel or fragment) or on paper (dot). They can be
-            colored but have no dimension and correspond to the true
-            mathematical notion of a point.
-
-        === "Code example"
-
-            ```python
-            import numpy as np
-            import matplotlib.pyplot as plt
-            from gsp import glm, core, visual, transform
-
-            canvas   = core.Canvas(512, 512, 100.0)
-            viewport = core.Viewport(canvas, 0, 0, 512, 512)
-            camera   = glm.Camera("perspective", theta=10, phi=10)
-
-            P = glm.vec3(250_000)
-            P.xyz = np.random.uniform(-1, +1, (len(P),3))
-            pixels = visual.Pixels(P)
-            pixels.render(viewport, camera.transform)
-            camera.connect(viewport, "motion",  pixels.render)
-            plt.savefig("../docs/assets/simple-pixels.png")
-            plt.show()
-            ```
+        Even with antialias off, marker coverage leaks on neighbouring pixels if the position is not an exact divider of viewport size (in pixels). Vertices coordinates could be rounded at time of rendering but it is easier to set a very small size whose coverage is more or less guaranteed to be one pixel. However, this size seems to be wrong on Windows, depending on the screen size.
     """
 
     def __init__(self, positions,
@@ -47,23 +22,13 @@ class Pixels(Visual):
         """
         Create a visual of n pixels at given *positions* with
         given *colors*.
-        
+
         Parameters
         ----------
         positions : Transform | Buffer
             Pixels position (vec3)
         colors : Transform | Buffer | Color
             Pixels colors (vec4)
-
-        !!! Note "Notes on matplotlib implementation"
-
-            Even with antialias off, marker coverage leaks on
-            neighbouring pixels if the position is not an exact
-            divider of viewport size (in pixels). Vertices coordinates
-            vould be rounded at time of rendering but it is easier to
-            set a very small size whose coverage is more or less
-            guaranteed to be one pixel. However, this size seems to be
-            wrong on Windows, dependng on the screen size.
         """
 
         Visual.__init__(self)
@@ -86,12 +51,12 @@ class Pixels(Visual):
         proj : mat4
             Projection matrix to use for rendering
         """
-        
+
         # We store the model/view/proj matrices for the resize_event below
         if model is not None:
             self._model = model
         model = self._model
-        
+
         if view is not None:
             self._view = view
         view = self._view
@@ -99,11 +64,11 @@ class Pixels(Visual):
         if proj is not None:
             self._proj = proj
         proj = self._proj
-        
+
         transform = proj @ view @ model
         self.set_variable("viewport", viewport)
 
-        
+
         # Create the collection if necessary
         if viewport not in self._viewports:
             size = 0.25*(72/viewport._canvas._dpi)**2
@@ -118,7 +83,7 @@ class Pixels(Visual):
             canvas = viewport._canvas._figure.canvas
             canvas.mpl_connect('resize_event',
                                lambda event: self.render(viewport))
-            
+
         collection = self._viewports[viewport]
         positions = self.eval_variable("positions")
         positions = positions.reshape(-1,3)

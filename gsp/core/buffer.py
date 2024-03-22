@@ -8,47 +8,37 @@ import numpy as np
 
 class Buffer:
 
-    def __init__(self, count : int,
-                       dtype : str,
-                       data : Data | Buffer = None,
-                       offset : int = None,
-                       key : str = None):
+    """
+    Buffer represents a structured view on some
+    [Data][gsp.core.Data] or [Buffer][gsp.core.Buffer]. Buffer can be
+    a partial or whole view on the underlying source.
+
+    Examples
+    --------
+    
+    ```pycon
+    >>> data = Data(struct = [(3, np.float32), (2, np.byte)])
+    >>> print(data[0])
+    Buffer(3, float32) # Buffer does not own data
+
+    >>> buffer = Buffer(3, np.float32)
+    Buffer(3, float32) # Buffer owns data
+    ```
+    """
+            
+    def __init__(self, count, dtype, data = None, offset = None, key = None):
         """
-        Buffer represents a structured view on some
-        [Data][gsp.core.Data] or [Buffer][gsp.core.Buffer]. Buffer can be
-        a partial or whole view on the underlying source.
-
-        Examples:
-
-        ```pycon
-        >>> data = Data(struct = [(3, np.float32), (2, np.byte)])
-        >>> print(data[0])
-        Buffer(3, float32) # Buffer does not own data
-        
-        >>> buffer = Buffer(3, np.float32)
-        Buffer(3, float32) # Buffer owns data
-        ```
-        
-        Parameters:
-
-          count:
-
+        Parameters
+        ----------
+        count : int
             Number of item
-
-          dtype:
-
+        dtype : str
             Type of the item
-
-          data:
-
+        data : Data | Buffer
             Data or Buffer this buffer is a view of
-
-          offset:
-
+        offset : int
             Offset in bytes in the Data source.
-
-          key:
-
+        key : str
             When data is a structured buffer, name of the subfield to
             access.
         """
@@ -66,19 +56,15 @@ class Buffer:
                 buffer = Buffer(count, dtype[name], self, 0, name)
                 self._buffers[name] = buffer
 
-    def set_data(self, offset: int,
-                       data : bytes):
+    def set_data(self, offset, data):
 
         """Update buffer content at given offset with new data.
         
-        Parameters:
-
-         offset:
-        
+        Parameters
+        ----------
+        offset : int
             Offset in bytes where to start update
-
-         data:
-        
+        data : bytes
             Content to update with.
         """
 

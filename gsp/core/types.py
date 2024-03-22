@@ -8,24 +8,25 @@ from enum import IntEnum
 class Type:
     """
     Types specific to the procotol
-    
     """
 
 class Measure:
+    """
+    Representation of a measure
+    """
+        
 
     def __init__(self, value : float,
                        unit :  str = None):
         """
         Representation of a measure
         
-        Parameters:
+        Parameters
+        ----------        
+        value: float
+            Values of the measure
 
-          value:
-        
-            Valuse of the measure
-
-          unit:
-        
+        unit: str
             Unit of the measure
         """
 
@@ -34,7 +35,8 @@ class Measure:
 
 
 class Color:
-
+    """ Representation of a color in the sRGB colorspace. """
+    
     def __init__(self, red :   float,
                        green : float,
                        blue :  float,
@@ -42,21 +44,22 @@ class Color:
         """
         Representation of a color in the sRGB colorspace.
         
-        Parameters:
-
-         red:
+        Parameters
+        ----------
+        
+        red:
         
             Normalized value for the red channel
 
-         green:
+        green:
         
             Normalized value for the green channel
 
-         blue:
+        blue:
         
             Normalized value for the blue channel
 
-         alpha:
+        alpha:
         
             Normalized value for he alpha channel.
         """
@@ -182,11 +185,35 @@ class Marker(IntEnum):
         return cls.__markers__[marker]
 
 
+class LineStyle(IntEnum):
+    solid:                 int = 1
+
+    dotted:                int = 2
+    densely_dotted:        int = 3
+    loosely_dotted:        int = 4
+
+    dashed:                int = 5
+    densely_dashed:        int = 6
+    loosely_dashed:        int = 7
+
+    dashdotted:            int = 8
+    densely_dashdotted:    int = 9
+    loosely_dashdotted:    int = 10
+
+    dashdotdotted:         int = 11
+    densely_dashdotdotted: int = 12
+    loosely_dashdotdotted: int = 13
+
 class LineCap(IntEnum):
     butt:  int = 1
     round: int = 2
     cap:   int = 3
-    
+
+class LineJoin(IntEnum):
+    miter: int = 1
+    round: int = 2
+    bevel: int = 3
+
 class Shading(IntEnum):
     flat : int    = 1
     gouraud : int = 2

@@ -7,67 +7,57 @@ from . buffer import Buffer
 from .. glm import ndarray
 
 class Data:
-    
-    def __init__(self, uri    : str  = None,
-                       nbytes : int  = None,
-                       struct : list[tuple[int,type],...] = None):
+    """
+    Data represents a block of raw binary data, with an optional structure. This data is built using the provided uri that may either point to an external file, or be a data URI that encodes the binary data directly in the JSON file. When an uri is provided, data will is fetched just in time and stored locally. If no uri has been provided, aempty data will be created ex-nihilo just in time. Data can be modified and is tracked for any modification.
+
+    Examples
+    --------
+
+    ```pycon
+    >>> data = Data(struct = [(3, np.float32), (2, np.byte)])
+    >>> print(len(data))
+    2       
+    >>> print(np.asarray(data))
+    [0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+    >>> print(np.asarray(data[0]))
+    [0. 0. 0.]
+    >>> print(np.asarray(data[1]))
+    [0 0]        
+    ```
+    """
+        
+    def __init__(self, uri = None,
+                       nbytes = None,
+                       struct = None):
         """
-        Data represents a block of raw binary data, with an
-        optional structure. This data is built using the provided uri
-        that may either point to an external file, or be a data URI
-        that encodes the binary data directly in the JSON file. When
-        an uri is provided, data will is fetched just in time and
-        stored locally. If no uri has been provided, aempty data will
-        be created ex-nihilo just in time. Data can be modified and
-        is tracked for any modification.
         
-        Examples:
-
-        ```pycon
-        >>> data = Data(struct = [(3, np.float32), (2, np.byte)])
-        >>> print(len(data))
-        2       
-        >>> print(np.asarray(data))
-        [0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-        >>> print(np.asarray(data[0]))
-        [0. 0. 0.]
-        >>> print(np.asarray(data[1]))
-        [0 0]        
-        ```
-
-        Parameters:
-
-          uri:
-        
+        Parameters
+        ----------
+        uri:  str
             Uniform Resource Identifier from where to fetch data.
-
-          nbytes:
-        
+        nbytes : int
             Number of bytes in the data. This is used to create data
             ex-nihilo if no uri has been provided. If a struct is
             provided, the nbytes is discarded in favor of the size of
             the provided structure.
-
-          struct:
-
+        struct : list[tuple[int,type],...]
             Description of the internal structure of the data as a
             list of (count, dtype) items.
 
+            !!! Notes "with `dtype` one of:"
 
-         with `ctype` one of:
-
-         Type       | Data type      | Signed                    | Bits
-         ---------- | -------------- | ------------------------- | ----
-         np.int8    | signed byte    | signed, two's complement  | 8
-         np.uint8   | unsigned byte  | unsigned                  | 8
-         np.int16   | signed short   | signed, two's complement  | 16
-         np.uint16  | unsigned short | unsigned                  | 16
-         np.int32   | signed int     | signed                    | 32
-         np.uint32  | unsigned int   | unsigned                  | 32
-         np.int64   | signed long    | signed                    | 64
-         np.uint64  | unsigned long  | unsigned                  | 64
-         np.float32 | float          | signed                    | 32
-         np.float64 | double         | signed                    | 64
+                Type       | Data type      | Signed                    | Bits
+                ---------- | -------------- | ------------------------- | ----
+                np.int8    | signed byte    | signed, two's complement  | 8
+                np.uint8   | unsigned byte  | unsigned                  | 8
+                np.int16   | signed short   | signed, two's complement  | 16
+                np.uint16  | unsigned short | unsigned                  | 16
+                np.int32   | signed int     | signed                    | 32
+                np.uint32  | unsigned int   | unsigned                  | 32
+                np.int64   | signed long    | signed                    | 64
+                np.uint64  | unsigned long  | unsigned                  | 64
+                np.float32 | float          | signed                    | 32
+                np.float64 | double         | signed                    | 64
         """
         
         self._uri = uri
@@ -90,19 +80,16 @@ class Data:
                 self._buffers.append(buffer)
                 offset += nbytes
 
-    def set_data(self, offset: int,
-                       data : bytes):
+    def set_data(self, offset, data):
 
         """Update data content at given offset with new data.
         
-        Parameters:
+        Parameters
+        ----------
 
-         offset:
-        
+        offset : int
             Offset in bytes where to start update
-
-         data:
-        
+        data : bytes
             Content to update with.
         """
 
