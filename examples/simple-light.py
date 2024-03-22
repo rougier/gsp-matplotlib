@@ -25,7 +25,8 @@ for x, d in zip(np.linspace(-0.75, 0.75, 4), [0.00, 0.25, 0.5, 0.75]):
         specular = 1.0, 1.0, 1.0, shininess
         light = transform.Light((1.0,0.5,1.5), ambient, diffuse, specular)
         mesh = visual.Mesh(V, I, None, light(F), core.Color(0,0,0,0), 0)
-        mesh.render(viewport, camera.transform @ glm.translate(x,y,0))
+        mesh.render(viewport, camera.model @ glm.translate((x,y,0)),
+                              camera.view, camera.proj)
 
 import matplotlib.pyplot as plt
 plt.show()
