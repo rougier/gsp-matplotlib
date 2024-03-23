@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------
 # GL Mathematics for numpy
-# Copyright 2023 Nicolas P. Rougier - BSD 2 Clauses licence
+# Copyright 2024 Nicolas P. Rougier - BSD 2 Clauses licence
 # -----------------------------------------------------------------------------
 import numpy as np
 from . ndarray import mat4
@@ -11,7 +11,7 @@ def mesh(filename):
     Read a wavefront filename and returns vertices, texcoords and
     respective indices for faces and texcoords
     """
-    
+
     V, T, N, Vi, Ti, Ni = [], [], [], [], [], []
     with open(filename) as f:
        for line in f.readlines():
@@ -41,13 +41,13 @@ def mesh(filename):
 
 def normalize(V):
     """ Normalize V """
-    
+
     return V/(1e-16+np.sqrt((np.array(V)**2).sum(axis=-1)))[..., np.newaxis]
 
 
 def clamp(V, vmin=0, vmax=1):
     """ Clamp V between vmin and vmax """
-    
+
     return np.minimum(np.maximum(V,vmin),vmax)
 
 
@@ -63,14 +63,14 @@ def viewport(x, y, w, h, d, dtype=np.float32, transpose=False):
             Y origin (pixels) of the viewport (lower left)
 
         h (int):
-            Height (pixels) of the viewport 
+            Height (pixels) of the viewport
 
         w (int):
-            Width (pixels) of the viewport 
+            Width (pixels) of the viewport
 
         d (float):
             Depth of the viewport.
-    
+
         dtype (np.dtype):
             dtype of the resulting array
 
@@ -97,7 +97,7 @@ def frustum(left, right, bottom, top, znear, zfar, dtype=np.float32, transpose=F
     r"""View frustum matrix
 
     Args:
-    
+
         left (float):
             Left coordinate of the field of view.
 
@@ -119,12 +119,12 @@ def frustum(left, right, bottom, top, znear, zfar, dtype=np.float32, transpose=F
         dtype (numpy dtype):
             dtype of the resulting array
 
-        transpose (boolean): 
+        transpose (boolean):
             Whether to transpose result
 
-    
+
     Returns:
-    
+
         (mat4): View frustum matrix
     """
 
@@ -147,7 +147,7 @@ def perspective(fovy, aspect, znear, zfar, dtype=np.float32, transpose=False):
     """ Perspective projection matrix
 
     Args:
-    
+
         fovy (float):
             The field of view along the y axis.
 
@@ -165,7 +165,7 @@ def perspective(fovy, aspect, znear, zfar, dtype=np.float32, transpose=False):
 
         transpose (bool):
             Whether to transpose result
-    
+
     Returns:
 
         (mat4): Perspective projection matrix
@@ -180,7 +180,7 @@ def ortho(left, right, bottom, top, znear, zfar, dtype=np.float32, transpose=Fal
     """Create orthographic projection matrix
 
     Args:
-    
+
         left (float):
             Left coordinate of the field of view.
 
@@ -202,11 +202,11 @@ def ortho(left, right, bottom, top, znear, zfar, dtype=np.float32, transpose=Fal
         dtype (np.dtype):
             dtype of the resulting array
 
-        transpose (boolean): 
+        transpose (boolean):
             Whether to transpose result
-    
+
     Returns:
-    
+
         (mat4): Orthographic projection matrix
     """
 
@@ -243,7 +243,7 @@ def lookat(eye=(0,0,4.5), center=(0,0,0), up=(0,0,1), dtype=np.float32, transpos
         dtype (np.dtype):
             dtype of the resulting array
 
-        transpose (boolean): 
+        transpose (boolean):
             Whether to transpose result
 
     Returns:
@@ -254,11 +254,11 @@ def lookat(eye=(0,0,4.5), center=(0,0,0), up=(0,0,1), dtype=np.float32, transpos
     eye = np.array(eye)
     center = np.array(center)
     up = np.array(up)
-    
+
     Z = normalize(eye - center)
     Y = up
     X = normalize(np.cross(Y, Z))
-    Y = normalize(np.cross(Z, X))    
+    Y = normalize(np.cross(Z, X))
     return np.array([
         [X[0], X[1], X[2], -np.dot(X, eye)],
         [Y[0], Y[1], Y[2], -np.dot(Y, eye)],
@@ -270,7 +270,7 @@ def scale(scale, dtype=np.float32, transpose=False):
     """Non-uniform scaling along the x, y, and z axes
 
     Args:
-    
+
         scale (vec3):
             Scaling vector
 
@@ -279,9 +279,9 @@ def scale(scale, dtype=np.float32, transpose=False):
 
         transpose (bool):
             Whether to transpose result
-    
+
     Returns:
-    
+
         (mat4): Scaling matrix
     """
 
@@ -290,7 +290,7 @@ def scale(scale, dtype=np.float32, transpose=False):
                   [0, y, 0, 0],
                   [0, 0, z, 0],
                   [0, 0, 0, 1]], dtype=dtype)
-    
+
     if transpose:
         return np.transpose(S).view(mat4)
     else:
@@ -306,12 +306,13 @@ def fit(vertices):
 
     Returns:
 
-        (np.ndarray): vertices contained in the normalize cube    
+        (np.ndarray): vertices contained in the normalize cube
     """
 
-    vmin = vertices.min(axis=0)
-    vmax = vertices.max(axis=0)
-    return 2*(vertices-vmin) / max(vmax-vmin)-1
+    Vmin = vertices.min(axis=0)
+    Vmax = vertices.max(axis=0)
+    V = 2*(vertices - Vmin) / max(Vmax-Vmin) - 1
+    return  V - (V.min(axis=0) + V.max(axis=0))/2
 
 
 def translate(translate, dtype=np.float32, transpose=False):
@@ -319,7 +320,7 @@ def translate(translate, dtype=np.float32, transpose=False):
     Translation by a given vector
 
     Args:
-    
+
         translate (vec3):
             Translation vector.
 
@@ -328,9 +329,9 @@ def translate(translate, dtype=np.float32, transpose=False):
 
         transpose (bool):
             Whether to transpose result
-    
+
     Returns:
-    
+
         (mat4): Translation matrix
     """
 
@@ -339,13 +340,13 @@ def translate(translate, dtype=np.float32, transpose=False):
                   [0, 1, 0, y],
                   [0, 0, 1, z],
                   [0, 0, 0, 1]], dtype=dtype)
-    
+
     if transpose:
         return np.transpose(T).view(mat4)
     else:
         return T.view(mat4)
 
-    
+
 def center(vertices):
     """ Center vertices around the origin.
 
@@ -367,7 +368,7 @@ def xrotate(theta=0, dtype=np.float32, transpose=False):
     """Rotation about the X axis
 
     Args:
-    
+
         theta (float):
             Specifies the angle of rotation, in degrees.
 
@@ -388,18 +389,18 @@ def xrotate(theta=0, dtype=np.float32, transpose=False):
                    [0, c, -s, 0],
                    [0, s,  c, 0],
                    [0, 0,  0, 1]], dtype=dtype)
-    
+
     if transpose:
         return np.transpose(R).view(mat4)
     else:
         return R.view(mat4)
-    
+
 
 def yrotate(theta=0, dtype=np.float32, transpose=False):
     """Rotation about the Y axis
 
     Args:
-    
+
         theta (float):
             Specifies the angle of rotation, in degrees.
 
@@ -420,7 +421,7 @@ def yrotate(theta=0, dtype=np.float32, transpose=False):
                   [ 0, 1, 0, 0],
                   [-s, 0, c, 0],
                   [ 0, 0, 0, 1]], dtype=dtype)
-    
+
     if transpose:
         return np.transpose(R).view(mat4)
     else:
@@ -431,7 +432,7 @@ def zrotate(theta=0, dtype=np.float32, transpose=False):
     """Rotation about the Z axis
 
     Args:
-    
+
         theta (float):
             Specifies the angle of rotation, in degrees.
 
@@ -478,9 +479,9 @@ def rotate(theta, axis, dtype=np.float32, transpose=False):
 
     Returns:
 
-        (mat4): Rotation matrix 
+        (mat4): Rotation matrix
     """
-    
+
     t = np.radians(theta)
 
     axis = normalize(np.array(axis))
@@ -506,7 +507,7 @@ def align(U, V, dtype=np.float32, transpose=False):
 
     Args:
 
-        U (vec[234]): 
+        U (vec[234]):
             First vector
 
         U (vec[234]):
@@ -522,7 +523,7 @@ def align(U, V, dtype=np.float32, transpose=False):
 
         (mat4): Rotation matrix
     """
-    
+
     a, b = normalize(U), normalize(V)
     v = np.cross(a, b)
     c = np.dot(a, b)
