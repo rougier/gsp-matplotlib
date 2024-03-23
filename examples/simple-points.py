@@ -4,14 +4,15 @@
 # -----------------------------------------------------------------------------
 """ Points example """
 
-from gsp import glm
+import glm
+import camera
 import numpy as np
 import matplotlib.pyplot as plt
 from gsp import core, visual, transform
 
 canvas   = core.Canvas(512, 512, 100.0)
 viewport = core.Viewport(canvas, 0, 0, 512, 512)
-camera   = glm.Camera("ortho")
+camera   = camera.Camera("ortho")
 
 n = 600
 P = glm.vec3(n)
@@ -24,4 +25,3 @@ points = visual.Points(P, sizes, black, black, 0)
 points.render(viewport, camera.model, camera.view, camera.proj)
 # plt.savefig("../docs/assets/simple-points.png")
 plt.show()
-

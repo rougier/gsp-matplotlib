@@ -13,6 +13,4 @@ setup(
     packages = [ "gsp",
                  "gsp.core",
                  "gsp.visual",
-                 "gsp.transform",
-                 "gsp.glm",
-                 "gsp.glm.ndarray"])
+                 "gsp.transform"])
