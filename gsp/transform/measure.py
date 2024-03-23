@@ -135,7 +135,7 @@ class Millimeter(Measure):
     Conversion of a measure to millimeter
     """
 
-    def evaluate(selfk, variables):
+    def evaluate(self, variables):
         """Evaluate the transform"""
 
         measure = Measure.evaluate(self, variables)
