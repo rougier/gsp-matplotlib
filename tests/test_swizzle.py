@@ -4,7 +4,7 @@
 # -----------------------------------------------------------------------------
 import pytest
 import numpy as np
-from gsp.glm import scalar, vec2, vec3, vec4
+from gsp.glm.ndarray import scalar, vec2, vec3, vec4
 
 def test_ordered():
     Z1 = vec2(10)

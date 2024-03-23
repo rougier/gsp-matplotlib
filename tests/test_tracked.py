@@ -4,9 +4,7 @@
 # -----------------------------------------------------------------------------
 import pytest
 import numpy as np
-from gsp.glm import tracked_array
-from gsp.glm import mat2, mat3, mat4
-from gsp.glm import scalar, vec2, vec3, vec4
+from gsp.glm import ndarray
 
 class Tracker:
     def __init__(self, shape, dtype):
@@ -19,13 +17,13 @@ class Tracker:
 
 @pytest.fixture(autouse=True)
 def run_around_tests():
-    tracked_array.__tracker_class__ = Tracker
+    ndarray.tracked.__tracker_class__ = Tracker
     yield
-    tracked_array.__tracker_class__ = None
+    ndarray.tracked.__tracker_class__ = None
 
 
 def test_creation():
-    Z1 = tracked_array(10)
+    Z1 = ndarray.tracked(10)
     assert( isinstance(Z1._tracker, Tracker) )
     assert( np.asarray(Z1._tracker).shape == (10,))
 
@@ -33,21 +31,21 @@ def test_creation():
     assert( isinstance(Z2._tracker, Tracker) )
     assert( Z1._tracker == Z2._tracker )
 
-    Z = tracked_array((10,10))
+    Z = ndarray.tracked((10,10))
     assert( isinstance(Z._tracker, Tracker) )
     assert( np.asarray(Z._tracker).shape == (10,10))
 
 def test_subclass():
-    assert(issubclass(scalar, tracked_array))
-    assert(issubclass(vec2, tracked_array))
-    assert(issubclass(vec3, tracked_array))
-    assert(issubclass(vec4, tracked_array))
-    assert(issubclass(mat2, tracked_array))
-    assert(issubclass(mat3, tracked_array))
-    assert(issubclass(mat4, tracked_array))
+    assert(issubclass(ndarray.scalar, ndarray.tracked))
+    assert(issubclass(ndarray.vec2, ndarray.tracked))
+    assert(issubclass(ndarray.vec3, ndarray.tracked))
+    assert(issubclass(ndarray.vec4, ndarray.tracked))
+    assert(issubclass(ndarray.mat2, ndarray.tracked))
+    assert(issubclass(ndarray.mat3, ndarray.tracked))
+    assert(issubclass(ndarray.mat4, ndarray.tracked))
     
 def test_1d_tracking():
-    Z = tracked_array(10)
+    Z = ndarray.tracked(10)
     Z[...] = 0
     Z[0] = 1
     Z[-1] = 2
@@ -55,7 +53,7 @@ def test_1d_tracking():
     assert( np.array_equal(Z, np.asarray(Z._tracker)) )
 
 def test_2d_tracking():
-    Z = tracked_array((3,3))
+    Z = ndarray.tracked((3,3))
     Z[...] = 0
     Z[:,0] = 1
     Z[0,:] = 2
@@ -63,31 +61,31 @@ def test_2d_tracking():
     assert( np.array_equal(Z, np.asarray(Z._tracker)) )
 
 def test_structured_tracking():
-    Z = tracked_array(10, dtype = [("x", float), ("y", float)])
+    Z = ndarray.tracked(10, dtype = [("x", float), ("y", float)])
     Z["x"] = 0
     Z["y"] = 1
     assert( np.array_equal(Z, np.asarray(Z._tracker)) )
 
 def test_vec_tracking():
-    Z = vec4(10)
+    Z = ndarray.vec4(10)
     Z[...] = 0
     print(Z.shape, Z.dtype, Z._tracker._array.shape)
     assert( np.array_equal(Z, np.asarray(Z._tracker)) )
 
-    Z = vec4(10)
+    Z = ndarray.vec4(10)
     Z[...] = 0
     Z[0].z = 1
     assert( np.array_equal(Z, np.asarray(Z._tracker)) )
 
     
 def test_fancy_tracking():
-    Z = tracked_array(10)
+    Z = ndarray.tracked(10)
     with pytest.raises(NotImplementedError):
         Z[[0,1,2]] = 0
     
 def test_partial_tracking():
     Z1 = np.zeros(10)
-    Z2 = Z1[1:-1].view(tracked_array)
+    Z2 = Z1[1:-1].view(ndarray.tracked)
     Z2[...] = 0
     Z2[0] = 1
     Z2[-1] = 2
@@ -95,10 +93,10 @@ def test_partial_tracking():
     assert( np.array_equal(Z2, np.asarray(Z2._tracker)) )
 
 def test_view():
-    Z = np.zeros(10).view(tracked_array)
+    Z = np.zeros(10).view(ndarray.tracked)
     assert( isinstance(Z._tracker, Tracker) )
     
     Z1 = np.zeros(10)
-    Z2 = Z1[1:-1].view(tracked_array)
+    Z2 = Z1[1:-1].view(ndarray.tracked)
     assert( isinstance(Z2._tracker, Tracker) )
     assert( np.asarray(Z2._tracker).shape == (8,))
