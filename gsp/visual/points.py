@@ -46,8 +46,8 @@ class Points(Visual):
         self.set_variable("fill_colors", fill_colors)
         self.set_variable("line_colors", line_colors)
         self.set_variable("line_widths", line_widths)
-        
-        
+
+
     def render(self, viewport=None, model=None, view=None, proj=None):
         """
         Render the visual on *viewport* using the given *model*,
@@ -69,7 +69,7 @@ class Points(Visual):
         if model is not None:
             self._model = model
         model = self._model
-        
+
         if view is not None:
             self._view = view
         view = self._view
@@ -77,10 +77,10 @@ class Points(Visual):
         if proj is not None:
             self._proj = proj
         proj = self._proj
-        
+
         transform = proj @ view @ model
         self.set_variable("viewport", viewport)
-        
+
         # Create the collection if necessary
         if viewport not in self._viewports:
             collection = viewport._axes.scatter([],[])
@@ -100,13 +100,13 @@ class Points(Visual):
         positions = positions.reshape(-1,3)
         positions = glm.to_vec3(glm.to_vec4(positions) @ transform.T)
         depth = -positions[:,2]
-        
+
         sort_indices = np.argsort(depth)
         positions = positions[sort_indices]
         collection.set_offsets(positions[:,:2])
         self.set_variable("screen", {"positions": positions})
         self.set_variable("depth",  {"positions": depth})
-        
+
         fill_colors = self.eval_variable("fill_colors")
         if isinstance(fill_colors, np.ndarray) and (len(fill_colors) == len(positions)):
             collection.set_facecolors(fill_colors[sort_indices])
@@ -130,4 +130,3 @@ class Points(Visual):
             collection.set_sizes(sizes[sort_indices])
         else:
             collection.set_sizes(sizes)
-            

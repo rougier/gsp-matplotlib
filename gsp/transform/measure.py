@@ -51,7 +51,7 @@ class Measure(Transform):
         if "viewport" not in variables.keys():
             raise ValueError("Viewport has not been specified")
         viewport = variables["viewport"]
-        
+
         if self._next:
             value = self._next.evaluate(variables)
         elif self._buffer is not None:
@@ -62,17 +62,17 @@ class Measure(Transform):
         value = np.asanyarray(value)
         width, height = viewport.size
         dpi = viewport._canvas._dpi
-        
+
         # "2" because normalized device coordinates goes from -1 to +1
         scale = np.array([2/width, 2/height, 0])
-        
-        if len(value.shape) == 0 or value.shape[-1] == 1: 
+
+        if len(value.shape) == 0 or value.shape[-1] == 1:
             scale = scale[0]
-        elif value.shape[-1] == 2: 
+        elif value.shape[-1] == 2:
             scale = scale[:2]
         return scale * value
-    
-    
+
+
     def __mul__(self, other):
         if isinstance(other, (int,tuple)):
             return self(other)
@@ -81,12 +81,12 @@ class Measure(Transform):
     def __rmul__(self, other):
         return self.__mul__(other)
 
-    
+
 class Pixel(Measure):
     """
     Conversion of a measure to pixel.
     """
-    
+
     def evaluate(self, variables):
         """Evaluate the transform"""
 
@@ -98,7 +98,7 @@ class Inch(Measure):
     """
     Conversion of a measure to inch.
     """
-    
+
     def evaluate(self, variables):
         """Evaluate the transform"""
 
@@ -110,7 +110,7 @@ class Point(Measure):
     """
     Conversion of a measure to point
     """
-    
+
     def evaluate(self, variables):
         """Evaluate the transform"""
 
@@ -122,7 +122,7 @@ class Centimeter(Measure):
     """
     Conversion of a measure to centimeter
     """
-    
+
     def evaluate(self, variables):
         """Evaluate the transform"""
 
@@ -134,7 +134,7 @@ class Millimeter(Measure):
     """
     Conversion of a measure to millimeter
     """
-    
+
     def evaluate(selfk, variables):
         """Evaluate the transform"""
 
@@ -146,7 +146,7 @@ class Meter(Measure):
     """
     Conversion of a measure to meter
     """
-    
+
     def evaluate(self, variables):
         """Evaluate the transform"""
 
@@ -158,7 +158,7 @@ class Kilometer(Measure):
     """
     Conversion of a measure to kilometer
     """
-    
+
     def evaluate(self, variables):
         """Evaluate the transform"""
 

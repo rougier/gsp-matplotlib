@@ -8,7 +8,7 @@ from . canvas import Canvas
 from . types import Color
 
 class Viewport:
-    
+
     """
     A viewport is a rectangular two-dimensional surface of a
     canvas, located at (x, y) coordinates (bottom left corner)
@@ -30,10 +30,10 @@ class Viewport:
         A viewport is a rectangular two-dimensional surface of a
         canvas, located at (x, y) coordinates (bottom left corner)
         with size equal to width × height pixels.
-        
+
         Parameters
         ----------
-        
+
         canvas: Canvas
             Canvas where to create the viewport
         x: int
@@ -55,7 +55,7 @@ class Viewport:
         self._extent = x, y, width, height
         self._axes = canvas._figure.add_axes([x / canvas._width,
                                               y / canvas._height,
-                                              width / canvas._width,   
+                                              width / canvas._width,
                                               height / canvas._height])
         self._axes.set_aspect(width/height)
         self._axes.patch.set_color(self._color)
@@ -72,7 +72,7 @@ class Viewport:
     @property
     def size(self):
         """ Get viewport current size (pixels) """
-        
+
         figure = self._canvas._figure
         dpi = self._canvas._dpi
         axes = self._axes
@@ -81,4 +81,3 @@ class Viewport:
         width = bbox.width * dpi
         height = bbox.height * dpi
         return width, height
-
