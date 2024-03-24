@@ -14,15 +14,15 @@ class Measure:
     """
     Representation of a measure
     """
-        
+
 
     def __init__(self, value : float,
                        unit :  str = None):
         """
         Representation of a measure
-        
+
         Parameters
-        ----------        
+        ----------
         value: float
             Values of the measure
 
@@ -36,31 +36,31 @@ class Measure:
 
 class Color:
     """ Representation of a color in the sRGB colorspace. """
-    
+
     def __init__(self, red :   float,
                        green : float,
                        blue :  float,
                        alpha : float):
         """
         Representation of a color in the sRGB colorspace.
-        
+
         Parameters
         ----------
-        
+
         red:
-        
+
             Normalized value for the red channel
 
         green:
-        
+
             Normalized value for the green channel
 
         blue:
-        
+
             Normalized value for the blue channel
 
         alpha:
-        
+
             Normalized value for he alpha channel.
         """
 
@@ -71,16 +71,16 @@ class Color:
 
     def __getitem__(self, index):
         return self._color[index]
-    
+
     def __len__(self):
         return len(self._color)
 
-    
+
 class Marker(IntEnum):
     """
 
     **Attributes**
-    
+
     | Name          | Visual                    | Reference                   |
     |---------------|---------------------------|-----------------------------|
     | `point`       | :material-circle:         | [material-circle]           |
@@ -111,7 +111,7 @@ class Marker(IntEnum):
     [material-disc]: https://pictogrammers.com/library/mdi/icon/disc/
     [material-arrow-up-thick]: https://pictogrammers.com/library/mdi/icon/arrow-up-thick/
     """
-    
+
     point : int    = 1
     triangle : int = 2
     square : int   = 3
@@ -131,7 +131,7 @@ class Marker(IntEnum):
     def path(cls, marker):
         if cls.__markers__ is None:
             from . svg import svg_to_path
-            
+
             cls.__markers__ =  {
                 Marker.point :
                 svg_to_path(
@@ -148,7 +148,7 @@ class Marker(IntEnum):
                 Marker.minus :
                 svg_to_path(
                     "M20 14H4V10H20"),
-                
+
                 Marker.plus :
                 svg_to_path(
                     "M20 14H14V20H10V14H4V10H10V4H14V10H20V14Z"),
@@ -156,7 +156,7 @@ class Marker(IntEnum):
                 Marker.cross :
                 svg_to_path(
                     "M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z"),
-                
+
                 Marker.star :
                 svg_to_path(
                     "M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"),
@@ -223,5 +223,3 @@ class Render(IntEnum):
     front_back : int = 0
     front : int      = 1
     back : int       = 2
-
-

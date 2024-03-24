@@ -10,6 +10,3 @@ from . pixels import Pixels
 from . points import Points
 from . markers import Markers
 from . segments import Segments
-
-
-
