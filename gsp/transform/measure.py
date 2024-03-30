@@ -48,16 +48,22 @@ class Measure(Transform):
         Evaluate the transform
         """
 
-        if "viewport" in variables.keys():
+        if "dpi" in variables.keys():
+            dpi = variables["dpi"]
+            width, height = 1,1
+            scale = 1
+        elif "viewport" in variables.keys():
             viewport = variables["viewport"]
             dpi = viewport._canvas._dpi
             width, height = viewport.size
+            scale = 2
         elif "canvas" in variables.keys():
             canvas = variables["canvas"]
             dpi = canvas._dpi
             width, height = canvas.size
+            scale = 1
         else:
-            raise ValueError("Neither Canvas nor Viewport have been specified")
+            raise ValueError("Neither dpi, Canvas nor Viewport have been specified")
 
         if "size" in variables.keys():
             width, height = variables["size"]
@@ -71,8 +77,9 @@ class Measure(Transform):
 
         value = np.asanyarray(value)
 
-        # "2" because normalized device coordinates goes from -1 to +1
-        scale = 1*np.array([1/width, 1/height, 0])
+        # Canvas normalized device coordinates goes from 0 to +1
+        # Viewport normalized device coordinates goes from -1 to +1
+        scale = scale*np.array([1/width, 1/height, 0])
 
         if len(value.shape) == 0 or value.shape[-1] == 1:
             scale = scale[0]
@@ -90,6 +97,20 @@ class Measure(Transform):
     def __rmul__(self, other):
         return self.__mul__(other)
 
+    def dpi(self, variables):
+        """
+        Extract dpi value from given variables
+        """
+
+        if "dpi" in variables.keys():
+            dpi = variables["dpi"]
+        elif "canvas" in variables.keys():
+            dpi = variables["canvas"]._dpi
+        elif "viewport" in variables.keys():
+            dpi = variables["viewport"]._canvas._dpi
+        else:
+            raise ValueError("Neither dpi, Canvas nor Viewport have been specified")
+        return dpi
 
 class Pixel(Measure):
     """
@@ -112,8 +133,7 @@ class Inch(Measure):
         """Evaluate the transform"""
 
         measure = Measure.evaluate(self, variables)
-        dpi = variables["viewport"]._canvas._dpi
-        return dpi * measure
+        return self.dpi(variables) * measure
 
 class Point(Measure):
     """
@@ -124,8 +144,7 @@ class Point(Measure):
         """Evaluate the transform"""
 
         measure = Measure.evaluate(self, variables)
-        dpi = variables["viewport"]._canvas._dpi
-        return dpi/72 * measure
+        return self.dpi(variables)/72 * measure
 
 class Centimeter(Measure):
     """
@@ -136,8 +155,7 @@ class Centimeter(Measure):
         """Evaluate the transform"""
 
         measure = Measure.evaluate(self, variables)
-        dpi = variables["viewport"]._canvas._dpi
-        return dpi/2.54 * measure
+        return self.dpi(variables)/2.54 * measure
 
 class Millimeter(Measure):
     """
@@ -148,8 +166,7 @@ class Millimeter(Measure):
         """Evaluate the transform"""
 
         measure = Measure.evaluate(self, variables)
-        dpi = variables["viewport"]._canvas._dpi
-        return 0.1*dpi/2.54 * measure
+        return 0.1*self.dpi(variables)/2.54 * measure
 
 class Meter(Measure):
     """
@@ -160,8 +177,7 @@ class Meter(Measure):
         """Evaluate the transform"""
 
         measure = Measure.evaluate(self, variables)
-        dpi = variables["viewport"]._canvas._dpi
-        return 10e2*dpi/2.54 * measure
+        return 10e2*self.dpi(variables)/2.54 * measure
 
 class Kilometer(Measure):
     """
@@ -172,5 +188,4 @@ class Kilometer(Measure):
         """Evaluate the transform"""
 
         measure = Measure.evaluate(self, variables)
-        dpi = variables["viewport"]._canvas._dpi
-        return 1e5*dpi/2.54 * measure
+        return 1e5*self.dpi(variables)/2.54 * measure

@@ -4,8 +4,7 @@
 # -----------------------------------------------------------------------------
 """
 This example demonstrates how to specify margins expressed in
-pixels when creating a viewport. When Canvas is resized, these margins
-are not enforced because the aspect of the original viewport prevails.
+pixels when creating a viewport.
 """
 import matplotlib.pyplot as plt
 from gsp import core, transform

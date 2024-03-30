@@ -23,7 +23,7 @@ P1 = O + [0.25, 0.25, 0]
 p1 = visual.Points(P1, fill_colors=(0,0,0,1))
 p1.render(viewport, camera.model, camera.view, camera.proj)
 
-P2 = O + (10,10,0)*pixel
+P2 = O + (256,256,0)*pixel
 p2 = visual.Points(P2, fill_colors=(1,0,0,1))
 p2.render(viewport, camera.model, camera.view, camera.proj)
 
