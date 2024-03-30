@@ -48,9 +48,19 @@ class Measure(Transform):
         Evaluate the transform
         """
 
-        if "viewport" not in variables.keys():
-            raise ValueError("Viewport has not been specified")
-        viewport = variables["viewport"]
+        if "viewport" in variables.keys():
+            viewport = variables["viewport"]
+            dpi = viewport._canvas._dpi
+            width, height = viewport.size
+        elif "canvas" in variables.keys():
+            canvas = variables["canvas"]
+            dpi = canvas._dpi
+            width, height = canvas.size
+        else:
+            raise ValueError("Neither Canvas nor Viewport have been specified")
+
+        if "size" in variables.keys():
+            width, height = variables["size"]
 
         if self._next:
             value = self._next.evaluate(variables)
@@ -60,11 +70,9 @@ class Measure(Transform):
             raise ValueError("Transform is not bound")
 
         value = np.asanyarray(value)
-        width, height = viewport.size
-        dpi = viewport._canvas._dpi
 
         # "2" because normalized device coordinates goes from -1 to +1
-        scale = np.array([2/width, 2/height, 0])
+        scale = 1*np.array([1/width, 1/height, 0])
 
         if len(value.shape) == 0 or value.shape[-1] == 1:
             scale = scale[0]
