@@ -78,6 +78,7 @@ class Measure(Transform):
             scale = scale[0]
         elif value.shape[-1] == 2:
             scale = scale[:2]
+
         return scale * value
 
 

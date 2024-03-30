@@ -23,15 +23,15 @@ P1 = O + [0.25, 0.25, 0]
 p1 = visual.Points(P1, fill_colors=(0,0,0,1))
 p1.render(viewport, camera.model, camera.view, camera.proj)
 
-P2 = O + 10*pixel
+P2 = O + (10,10,0)*pixel
 p2 = visual.Points(P2, fill_colors=(1,0,0,1))
 p2.render(viewport, camera.model, camera.view, camera.proj)
 
-P3 = O + 1*inch
+P3 = O + (1,1,0)*inch
 p3 = visual.Points(P3, fill_colors=(0,1,0,1))
 p3.render(viewport, camera.model, camera.view, camera.proj)
 
-P4 = O + 1*cm
+P4 = O + (1,1,0)*cm
 p4 = visual.Points(P4, fill_colors=(0,0,1,1))
 p4.render(viewport, camera.model, camera.view, camera.proj)
 
