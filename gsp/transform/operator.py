@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 from gsp.core import Buffer
 from gsp.transform import Transform
 
@@ -13,7 +12,7 @@ class Operator(Transform):
         self._next = None
         self._left = None
         self._right = None
-        
+
         if isinstance(left, Transform):
             self._left = left.copy()
         else:
@@ -23,7 +22,7 @@ class Operator(Transform):
             self._right = right.copy()
         else:
             self._right = right
-            
+
     @property
     def operator(self):
         return self._operator
@@ -44,7 +43,7 @@ class Operator(Transform):
 
     def set_right(self, right = None):
         self._right = right
-        
+
     def copy(self):
         transform = super().copy()
         transform.set_operator(self._operator)
@@ -57,7 +56,7 @@ class Operator(Transform):
             transform.set_right(self._right.copy())
         else:
             transform.set_left(self._left)
-            
+
         return transform
 
     def evaluate(self, variables):
@@ -66,12 +65,12 @@ class Operator(Transform):
             left = self._left.evaluate(variables)
         else:
             left = self._left
-            
+
         if isinstance(self._right, Transform):
             right = self._right.evaluate(variables)
         else:
             right = self._right
-            
+
         return left, right
 
 class Add(Operator):
@@ -81,7 +80,7 @@ class Add(Operator):
     def evaluate(self, variables):
         left, right = Operator.evaluate(self, variables)
         return left + right
-        
+
 class Sub(Operator):
     def __init__(self, left = None, right = None):
         Operator.__init__(self, "-", left, right)

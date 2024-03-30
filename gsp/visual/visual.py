@@ -1,8 +1,7 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
-import numpy as np
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
+Team numpy as np
 from gsp.core import Viewport, Buffer
 from gsp.transform import Transform
 
@@ -12,7 +11,6 @@ class Visual:
 
         self._variables = {}
         self._viewports = {}
-
         self._model = np.eye(4)
         self._view = np.eye(4)
         self._proj = np.eye(4)

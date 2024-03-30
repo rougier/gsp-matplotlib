@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 import numpy as np
 from . buffer import Buffer
 from .. glm import ndarray
@@ -16,21 +15,21 @@ class Data:
     ```pycon
     >>> data = Data(struct = [(3, np.float32), (2, np.byte)])
     >>> print(len(data))
-    2       
+    2
     >>> print(np.asarray(data))
     [0 0 0 0 0 0 0 0 0 0 0 0 0 0]
     >>> print(np.asarray(data[0]))
     [0. 0. 0.]
     >>> print(np.asarray(data[1]))
-    [0 0]        
+    [0 0]
     ```
     """
-        
+
     def __init__(self, uri = None,
                        nbytes = None,
                        struct = None):
         """
-        
+
         Parameters
         ----------
         uri:  str
@@ -59,14 +58,14 @@ class Data:
                 np.float32 | float          | signed                    | 32
                 np.float64 | double         | signed                    | 64
         """
-        
+
         self._uri = uri
         self._nbytes = nbytes
         self._struct = struct
 
         if uri is None and nbytes is None and struct is None:
             raise ValueError("One of uri, nbytes or struct needs to be specified")
-        
+
         self._array = None
         self._buffers = []
 
@@ -83,7 +82,7 @@ class Data:
     def set_data(self, offset, data):
 
         """Update data content at given offset with new data.
-        
+
         Parameters
         ----------
 
@@ -100,7 +99,7 @@ class Data:
         """
         If data is structured, this give access to underlying buffers.
         """
-        
+
         return self._buffers[index]
 
     def __len__(self):
@@ -113,7 +112,7 @@ class Data:
         """
         Get the underlying array holding the data (just in time creation).
         """
-        
+
         if self._array is None:
             self._array = ndarray.tracked(self._nbytes, np.ubyte)
             if self._uri is not None:

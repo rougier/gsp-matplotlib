@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 """
 # Simple light example
 
@@ -17,7 +16,7 @@ camera   = glm.Camera("ortho")
 
 V, I = glm.sphere(0.25, 64, 64)
 F = V[I]
-        
+
 for x, d in zip(np.linspace(-0.75, 0.75, 4), [0.00, 0.25, 0.5, 0.75]):
     for y, shininess in zip(np.linspace(0.75, -0.75, 4), [0, 8, 16, 32]):
         ambient  = 1.0, 0.0, 0.0, 1-d
@@ -30,4 +29,3 @@ for x, d in zip(np.linspace(-0.75, 0.75, 4), [0.00, 0.25, 0.5, 0.75]):
 
 import matplotlib.pyplot as plt
 plt.show()
-

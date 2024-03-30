@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 """ Simpel markers """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -39,5 +38,3 @@ points = visual.Markers(
 points.render(viewport, camera.model, camera.view, camera.proj)
 # plt.savefig("../docs/assets/simple-markers.png")
 plt.show()
-
-

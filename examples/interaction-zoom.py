@@ -1,13 +1,12 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 """
 # Zoom integration is point sizes and line widths.
 
 This example demonstrates the dynamic modification of the sizes and the
 linewidths of a collection of points such that they visually grow and
-shrink with zoom level. 
+shrink with zoom level.
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -44,4 +43,3 @@ points.render(viewport, camera.model, camera.view, camera.proj)
 camera.connect(viewport, "motion",  points.render)
 camera.connect(viewport, "scroll",  update)
 plt.show()
-

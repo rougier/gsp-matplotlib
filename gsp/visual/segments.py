@@ -1,12 +1,14 @@
 # -----------------------------------------------------------------------------
 # Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
+# Copyright 2023-2024 Vispy Development Team - BSD 2 Clauses licence
 # -----------------------------------------------------------------------------
+import glm
 import numpy as np
-from gsp import glm
-from gsp.visual import Visual
 from matplotlib.collections import LineCollection
-from gsp.core import Viewport, Buffer, Color, Measure, LineCap
+
+from gsp.visual import Visual
+from gsp.core import Viewport, Buffer, Color, Measure
+from gsp.core import LineCap, LineJoin, LineStyle
 
 
 class Segments(Visual):

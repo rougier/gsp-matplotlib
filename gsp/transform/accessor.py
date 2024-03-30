@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP) — matplotlib backend
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -17,7 +16,7 @@ class Accessor(Transform):
         transform = Transform.copy(self)
         transform._key = self._key
         return transform
-        
+
     def evaluate(self, buffers=None):
         if self._next:
             buffer = self._next.evaluate(buffers)
@@ -25,7 +24,7 @@ class Accessor(Transform):
             buffer = self._buffer
         else:
             raise ValueError("Transform is not bound")
-            
+
         if buffer.dtype.names:
             buffer = buffer[self._key]
         elif self._key in "xyzw":
@@ -39,7 +38,7 @@ class Accessor(Transform):
             return buffer[buffers["index"]]
         else:
             return buffer
-            
+
 
 class X(Accessor):
     def __init__(self, buffer=None):
@@ -72,5 +71,3 @@ class B(Accessor):
 class A(Accessor):
     def __init__(self, buffer=None):
         Accessor.__init__(self, buffer, "a")
-
-

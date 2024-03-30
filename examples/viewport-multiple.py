@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 """
 # Simple light example
 
@@ -17,4 +16,3 @@ Viewport(canvas, 256, 0, 256, 256, (0,0,1,1))
 Viewport(canvas, 256, 256, 256, 256, (1,1,0,1))
 # canvas.render("simple-viewport.png")
 plt.show()
-

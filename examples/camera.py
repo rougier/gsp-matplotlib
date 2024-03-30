@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Copyright (c) 2020 Nicolas P. Rougier. All rights reserved.
-# Distributed under the (new) BSD License.
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 import glm
 import numpy as np
 

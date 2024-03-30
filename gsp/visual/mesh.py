@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 import numpy as np
 from gsp import glm
 from gsp.visual import Visual
@@ -42,7 +41,7 @@ class Mesh(Visual):
              ```
     """
 
-    
+
     def __init__(self, positions, face_indices,
                        line_indices = None,
                        fill_colors = Color(1,1,1,1),
@@ -65,7 +64,7 @@ class Mesh(Visual):
             - Fill colors are always related to faces because
               matplotlib does not implement barycentric interpolation
               inside a triangle.
-        
+
         Parameters
         ----------
         positions : Transform | Buffer
@@ -111,7 +110,7 @@ class Mesh(Visual):
         if model is not None:
             self._model = model
         model = self._model
-        
+
         if view is not None:
             self._view = view
         view = self._view
@@ -122,7 +121,7 @@ class Mesh(Visual):
 
         self.set_variable("viewport", viewport)
         transform = proj @ view @ model
-        
+
         if viewport not in self._viewports:
             collection = PolyCollection([], clip_on=True, snap=False)
             self._viewports[viewport] = collection
@@ -133,9 +132,9 @@ class Mesh(Visual):
             canvas = viewport._canvas._figure.canvas
             canvas.mpl_connect('resize_event',
                                lambda event: self.render(viewport))
-            
+
         collection = self._viewports[viewport]
-        
+
         # Get positions
         positions = self.eval_variable("positions")
         positions = positions.reshape(-1,3)
@@ -143,7 +142,7 @@ class Mesh(Visual):
         # Get face indices as triangles
         face_indices = self.eval_variable("face_indices")
         face_indices = face_indices.reshape(-1,3)
-        
+
         # Compute tranformed triangles (faces) and their (mean) depth
         positions = glm.to_vec3(glm.to_vec4(positions) @ transform.T)
         p_depth = positions[:,2]
@@ -154,14 +153,14 @@ class Mesh(Visual):
                                    "faces": faces} )
         self.set_variable("depth",  {"positions": p_depth,
                                    "faces": f_depth} )
-        
+
         # Sort faces according to f_depth
         sort_indices = np.argsort(f_depth)
 
-        
+
         # Set positions in the collection
         collection.set_verts(faces[sort_indices,:,:2])
-        
+
         # Set fill color(s)
         fill_colors = self.eval_variable("fill_colors")
         if isinstance(fill_colors, np.ndarray) and (len(fill_colors) == len(faces)):
@@ -182,4 +181,3 @@ class Mesh(Visual):
         if line_widths is not None:
             collection.set_linewidths(line_widths)
             collection.set_antialiaseds(line_widths > 0)
-

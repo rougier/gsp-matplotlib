@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 """ Segments example """
 
 import numpy as np
@@ -23,4 +22,3 @@ points.render(viewport, camera.model, camera.view, camera.proj)
 
 # plt.savefig("../docs/assets/simple-segments.png")
 plt.show()
-

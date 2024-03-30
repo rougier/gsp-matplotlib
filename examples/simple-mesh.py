@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 """
 # Simple light example
 
@@ -24,4 +23,3 @@ mesh.render(viewport, camera.model, camera.view, camera.proj)
 camera.connect(viewport, "motion",  mesh.render)
 # plt.savefig("../docs/assets/simple-mesh.png")
 plt.show()
-

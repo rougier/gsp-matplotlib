@@ -1,13 +1,12 @@
-# -----------------------------------------------------------------------------
-# GL Mathematics for numpy
-# Copyright 2023 Nicolas P. Rougier - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 import numpy as np
 
 
 def sRGB_to_RGB(color):
-    
-    
+
+
     color = np.asarray(color, dtype=float).reshape(-1, 3)
     R, G, B = color[..., 0], color[..., 1], color[..., 2]
     R = np.where(R > 0.04045, np.power((R + 0.055) / 1.055, 2.4), R / 12.92)
@@ -17,7 +16,7 @@ def sRGB_to_RGB(color):
 
 def RGB_to_sRGB(color):
     """ OKLAb model """
-    
+
     color = np.asarray(color, dtype=float).reshape(-1, 3)
     R, G, B = color[..., 0], color[..., 1], color[..., 2]
     R = np.where(R > 0.0031308, 1.055 * np.power(R, 1 / 2.4) - 0.055, R * 12.92)
@@ -27,7 +26,7 @@ def RGB_to_sRGB(color):
 
 def sRGBA_to_RGBA(color):
     """ OKLAb model """
-    
+
     color = np.asarray(color, dtype=float).reshape(-1, 4)
     R, G, B, A = color[..., 0], color[..., 1], color[..., 2], color[..., 3]
     R = np.where(R > 0.04045, np.power((R + 0.055) / 1.055, 2.4), R / 12.92)
@@ -38,7 +37,7 @@ def sRGBA_to_RGBA(color):
 
 def RGBA_to_sRGBA(color):
     """ OKLAb model """
-    
+
     color = np.asarray(color, dtype=float).reshape(-1, 4)
     R, G, B, A = color[..., 0], color[..., 1], color[..., 2], color[..., 3]
     R = np.where(R > 0.0031308, 1.055 * np.power(R, 1 / 2.4) - 0.055, R * 12.92)
@@ -55,4 +54,3 @@ def RGBA_to_sRGBA(color):
 #     color = np.asarray(color, dtype=float).reshape(-1, 4)
 #     color[...,:3] = np.power(color[:,:3],1/2.2)
 #     return color
-

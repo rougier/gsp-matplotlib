@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -49,12 +48,11 @@ class Colormap(Transform):
         """
         Evaluate the transform
         """
-        
+
         if self._next:
             value = self._next.evaluate(buffers)
         else:
-            value = self._buffer  
+            value = self._buffer
         cmap = plt.get_cmap(self._colormap)
         norm = mpl.colors.Normalize(vmin=value.min(), vmax=value.max())
         return cmap(norm(value))
-

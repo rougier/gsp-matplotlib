@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP) — matplotlib backend
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 from gsp.transform import Transform
 
 class Depth(Transform):
@@ -12,7 +11,7 @@ class Depth(Transform):
 
     def __call__(self):
         raise ValueError("Depth transform cannot be composed")
-        
+
     def evaluate(self, buffers):
         if "depth" in buffers.keys():
             if self._buffer in buffers["depth"].keys():

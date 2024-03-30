@@ -1,7 +1,6 @@
-# -----------------------------------------------------------------------------
-# Graphic Server Protocol (GSP)
-# Copyright 2023 Vispy Development Team - BSD 2 Clauses licence
-# -----------------------------------------------------------------------------
+# Package: Graphic Server Protocol / Matplotlib
+# Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
+# License: BSD 3 clause
 import numpy as np
 import matplotlib as mpl
 from gsp import glm
@@ -56,7 +55,7 @@ class Markers(Visual):
              plt.show()
              ```
     """
-        
+
     def __init__(self, positions,
                        types = Marker.point,
                        sizes = 25.0,
@@ -90,7 +89,7 @@ class Markers(Visual):
         line_widths : Transform | Buffer | Measure
             Markers line colors (vec4)
         """
-        
+
         Visual.__init__(self)
         self.set_variable("positions", positions)
         self.set_variable("sizes", sizes)
@@ -107,7 +106,7 @@ class Markers(Visual):
         """
         Generate paths for markers and dependng on positions.
         """
-        
+
         axis = self.eval_variable("axis")
         types = self.eval_variable("types")
         angles = self.eval_variable("angles")
@@ -125,7 +124,7 @@ class Markers(Visual):
                 except: angle = float(angles)
                 try:    axis = axis[i]
                 except: axis = axis
-                
+
                 mtype = Marker.path(mtype)
                 marker = mpl.markers.MarkerStyle(mtype)
                 transform = marker.get_transform()
@@ -135,16 +134,16 @@ class Markers(Visual):
                 if axis is not None:
                     z_axis = (0,0,1)
                     A = glm.align(positions[i], z_axis)
-                    transform = A @ transform                    
+                    transform = A @ transform
                 V = np.asarray(path._vertices, dtype=np.float32)
                 zeros = np.zeros(len(V), dtype=np.float32)
                 ones = np.ones(len(V), dtype=np.float32)
                 Z = np.c_[V, zeros, ones]
                 Z = Z @ transform.T
                 # Z = Z / Z[3]
-                path._vertices = Z[:,:2]                
+                path._vertices = Z[:,:2]
                 self.paths.append(path)
-        
+
 
     def render(self, viewport=None, model=None, view=None, proj=None):
         """
@@ -167,7 +166,7 @@ class Markers(Visual):
         if model is not None:
             self._model = model
         model = self._model
-        
+
         if view is not None:
             self._view = view
         view = self._view
@@ -195,7 +194,7 @@ class Markers(Visual):
 
         collection = self._viewports[viewport]
         positions = self.eval_variable("positions")
-        
+
         axis = self.eval_variable("axis")
         if axis is not None:
             P = glm.to_vec3(glm.to_vec4(positions) @ model.T)
@@ -239,5 +238,3 @@ class Markers(Visual):
             collection.set_sizes(sizes[sort_indices])
         else:
             collection.set_sizes(sizes)
-
-            
