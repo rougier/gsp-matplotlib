@@ -121,8 +121,13 @@ class Camera():
             self.zoom  = max(0.9*self.zoom, self.zoom_min)
         elif event.button == "down":
             self.zoom = min(1.1*self.zoom, self.zoom_max)
+
+        xlim = self.axes.get_xlim()[1]
+        ylim = self.axes.get_ylim()[1]
+        aspect = ylim/xlim
+        self.axes.zoom = self.zoom
         self.axes.set_xlim(-self.zoom, self.zoom)
-        self.axes.set_ylim(-self.zoom, self.zoom)
+        self.axes.set_ylim(-self.zoom*aspect, self.zoom*aspect)
         self.update("scroll")
         self.figure.canvas.draw()
 

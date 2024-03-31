@@ -1,7 +1,7 @@
 # Package: Graphic Server Protocol / Matplotlib
 # Authors: Nicolas P .Rougier <nicolas.rougier@inria.fr>
 # License: BSD 3 clause
-Team numpy as np
+import numpy as np
 from gsp.core import Viewport, Buffer
 from gsp.transform import Transform
 

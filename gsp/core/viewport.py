@@ -53,13 +53,16 @@ class Viewport:
         self._color = color
         self._extent = x, y, width, height
         self._axes = canvas._figure.add_axes([0,0,1,1])
+        self._axes.zoom = 1.0
         self._update()
 
         self._axes.patch.set_color(self._color)
         # self._axes.patch.set_alpha(0)
         self._axes.autoscale(False)
-        self._axes.set_xlim(-1, 1)
-        self._axes.set_ylim(-1, 1)
+
+        # self._axes.set_xlim(-1, 1)
+        # self._axes.set_ylim(-1, 1)
+
         self._axes.get_xaxis().set_visible(False)
         self._axes.get_yaxis().set_visible(False)
         for position in ["top", "bottom", "left", "right"]:
@@ -80,7 +83,6 @@ class Viewport:
         x, y, width, height = self._extent
         canvas = self._canvas
         size = canvas.size
-
 
         # Measure transorm cannot know if we evaluate along x or y
         # axis and this is a problem when value such a "1.0" is used
@@ -127,6 +129,19 @@ class Viewport:
 
         # Enforce aspect
         # self._axes.set_aspect(width/height)
+
+        width, height = self.size
+        zoom = self._axes.zoom
+        if width > height:
+            xlim = zoom*width/height
+            ylim = zoom
+        else:
+            xlim = zoom
+            ylim = zoom*height/width
+        self._axes.set_xlim(-xlim, xlim)
+        self._axes.set_ylim(-ylim, ylim)
+
+        return x, y, width, height
 
 
     @property
