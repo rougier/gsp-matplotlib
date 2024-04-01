@@ -55,7 +55,8 @@ class Measure(Transform):
             viewport = variables["viewport"]
             dpi = viewport._canvas._dpi
             width, height = viewport.size
-            scale = 2
+            xlim,ylim = viewport.xlim, viewport.ylim
+            scale = xlim[1]-xlim[0], ylim[1]-ylim[0], 1
         elif "canvas" in variables.keys():
             canvas = variables["canvas"]
             dpi = canvas._dpi
@@ -87,9 +88,8 @@ class Measure(Transform):
 
         return scale * value
 
-
     def __mul__(self, other):
-        if isinstance(other, (int,tuple)):
+        if isinstance(other, (int,tuple,np.ndarray)):
             return self(other)
         return Transform.__mul__(self, other)
 

@@ -13,43 +13,11 @@ from gsp.core import LineCap, LineJoin, LineStyle
 
 class Segments(Visual):
     """
-    !!! Note "Quick documentation"
-
-        === "Definition"
-
-            ![](../../assets/simple-segments.png){ width="33%" align=right }
-
-            Segments are line segments between two vertices. They can
-            be colored and styled (dash pattern). They possess a
-            thickness but always face the viewer such that their
-            apparent thickness is constant. Their end points (caps)
-            can be styled following the [SVG
-            specification](https://www.w3.org/TR/SVG2/painting.html)
-            (butt, round or cap).
-
-
-        === "Code example"
-
-            ```python
-            import numpy as np
-            import matplotlib.pyplot as plt
-            from gsp import core, visual, transform, glm
-
-            canvas = core.Canvas(512, 512, 100.0)
-            viewport = core.Viewport(canvas, 0, 0, 512, 512)
-            camera = glm.Camera("ortho")
-
-            n = 50
-            P = glm.vec3(2*n).reshape(-1,2,3)
-            P[:] = (0.0, -0.5, 0.0), (0.0, +0.5, 0.0)
-            P[:,0,0] = np.linspace(-0.75, +0.75, n)
-            P[:,1,0] = P[:,0,0] + 0.1
-            LW = np.linspace(0.1, 5.0, n)
-
-            points = visual.Segments(P, line_widths=LW)
-            points.render(viewport, camera.model, camera.view, camera.proj)
-            plt.show()
-            ```
+    Segments are line segments between two vertices. They can be
+    colored and styled (dash pattern). They possess a thickness but
+    always face the viewer such that their apparent thickness is
+    constant. Their end points (caps) can be styled following the SVG
+    specification (butt, round or cap).
     """
 
     def __init__(self, positions,

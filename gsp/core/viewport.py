@@ -140,9 +140,17 @@ class Viewport:
             ylim = zoom*height/width
         self._axes.set_xlim(-xlim, xlim)
         self._axes.set_ylim(-ylim, ylim)
-
+#        self._axes.set_xlim(-zoom, zoom)
+#        self._axes.set_ylim(-zoom, zoom)
         return x, y, width, height
 
+    @property
+    def xlim(self):
+        return self._axes.get_xlim()
+
+    @property
+    def ylim(self):
+        return self._axes.get_ylim()
 
     @property
     def size(self):
